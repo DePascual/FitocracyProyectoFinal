@@ -1,0 +1,21 @@
+﻿@model FitocracyProyectoFinal.Models.Usuario
+
+<div class="text-center">
+    <div class="row">
+        <div class="col-lg-4 pull-left">
+            <img src="~/Content/Imagenes/logo.png" />
+        </div>
+        <div class="col-lg-2"></div>
+        <div class="col-lg-4 pull-right">
+            <p style="font-size:15px;">WELCOME!! @Model.Username</p>
+        </div>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-lg-12 center">
+            <img src="~/Content/Imagenes/Portadas/portadaZonaUsu.jpg" sstyle="width:90%; height:480px" />
+        </div>
+    </div>
+    <hr />
+    @Html.Partial("~/Views/PartialsViews/ServicesPV.cshtml", "usu")
+</div>

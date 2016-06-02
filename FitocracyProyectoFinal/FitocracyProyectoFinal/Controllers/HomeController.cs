@@ -82,6 +82,7 @@ namespace FitocracyProyectoFinal.Controllers
             try
             {
                 var usu = _dbContext.Usuarios.Find<Usuario>(x => x.Username == usuario.Username && x.Password == passEncriptada).SingleOrDefault();
+                Session["infoUsuario"] = usu;
                 return JsonConvert.SerializeObject(usu);
             }
             catch (Exception)

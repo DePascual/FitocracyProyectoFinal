@@ -1,0 +1,58 @@
+﻿<div id="modalLogin" class="modal fade" tabindex="-1" role="dialog" ng-controller="loginCtrl">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Hey Fitocrat!</h4>
+            </div>
+
+            <div class="modal-body">
+                <p>Log In to continue tracking your workouts, developing healthy habits, and reaching your goals with the help of our expert coaches.</p>
+
+                <div id="errorLogin" style="display:none" class="text-center text-danger">
+                    <h3>Incorrect login!!</h3>
+                </div>
+
+                <form name="loginForm" novalidate>
+                    <div class="row">
+                        <div class="col-lg-2"></div>
+                        <div class="form-group col-lg-8">
+                            <div class="input-group" ng-class="{'has-error':loginForm.uName.$invalid && !loginForm.uName.$touched}">
+                                <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                                <input id="uName" name="uName" type="text" class="form-control" placeholder="userName" ng-model="uName" ng-required="true" ng-minlength="3" ng-maxlength="15" />
+                            </div>
+                            <p ng-show="loginForm.uName.$invalid && !loginForm.uName.$touched" class="help-block">Enter a valid name</p>
+                        </div>
+                        <div class="col-lg-2"></div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-lg-2"></div>
+                        <div class="form-group col-lg-8">
+                            <div class="input-group" ng-class="{'has-error':loginForm.uPass.$invalid && !loginForm.uPass.$touched}">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+                                <input id="uPass" name="uPass" type="password" class="form-control" placeholder="*********" ng-model="uPass" ng-required="true" ng-pattern="/^(?=.*\d)(?=.*[a-zA-Z])[a-zA-Z0-9]{7,}$/" />
+                            </div>
+                            <p ng-show="loginForm.uPass.$invalid && !loginForm.uPass.$touched" class="help-block">Enter a valid password</p>
+                        </div>
+                        <div class="col-lg-2"></div>
+                    </div>
+
+                    <div class="form-group text-center">
+                        <input type="submit" class="btn btn-primary btn-lg" ng-click="logear(loginForm.$valid)" ng-disabled="loginForm.$invalid" value="Submit" />
+                        <br />
+                        @*<span><a href="@Url.Action("ForgotPassword", "Home")" class="pointer">I forgot my username or password</a></span>*@
+                        <span><a ng-click="irAChangePass()" class="pointer">I forgot my password</a></span>
+                    </div>
+                </form>
+            </div>
+
+            <div class="modal-footer">
+                <span class="pull-left"><a ng-click="irARegistro()" class="pointer">I want to create a new account</a></span>
+                <button type="button" class="btn btn-default" ng-click="cerrar()">Close</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
