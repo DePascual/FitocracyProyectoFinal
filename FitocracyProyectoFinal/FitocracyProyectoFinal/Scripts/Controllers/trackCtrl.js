@@ -1,5 +1,5 @@
 ﻿angular.module('Fitocracy')
-    .controller('trackCtrl', function ($scope, trackService, $window, $compile, NgTableParams) {
+    .controller('trackCtrl', function ($scope, trackService, $window, $compile) {
         recuperaPreMadeWorkouts();
         recuperaAllTracks();
 
@@ -78,7 +78,7 @@
                 })
             }
 
-            $('#vistaParcial').load("http://localhost:1284/PartialsViews/TablaDatosWorkout", { "workout": $scope.workout, "tracks": $scope.Tracks });
+            $('#vistaParcial').load("http://"+ window.location.host +"/PartialsViews/TablaDatosWorkout", { "workout": $scope.workout, "tracks": $scope.Tracks });
         };
 
         $scope.trackEnPartial = function (obj) {
@@ -103,7 +103,7 @@
 
 
         $scope.workoutsFactory = function () {
-            $('#vistaParcial').load("http://localhost:1284/PartialsViews/workoutsFactory", function () {
+            $('#vistaParcial').load("http://"+window.location.host+"/PartialsViews/workoutsFactory", function () {
                 $compile($('#vistaParcial'))($scope);
             });
         };

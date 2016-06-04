@@ -6814,3 +6814,74 @@ td.visible-print {
     display: none !important;
   }
 }
+
+
+/*-----------AÑADIDOS POR MI----------------*/
+.button-login {
+	font-size:18px;
+	color:#0079ff;
+	border:2px solid #0079ff;
+	border-radius:14px;
+	padding:0 10px 0 10px;
+	background:none
+}
+
+
+.button-upload {
+	font-size:18px;
+	color:#1F2B32;
+	border:2px solid #1F2B32;
+	border-radius:14px;
+	padding:0 10px 0 10px;
+	background:none
+}
+
+.button-entrenamiento{
+  font-size:18px;
+  color: #0079ff;
+  background-color:#ffffff;
+  border: 2px solid #0079ff;
+}
+
+
+.btn-upload {
+  color: #ffffff;
+  background-color: #1F2B32;
+  border-color: #1F2B32;
+}
+
+
+.center-block {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.center {
+    margin: auto;
+    width: 100%;
+    padding: 10px;
+}
+
+.portadaOferta{
+    background-color:#EFF1F3
+}
+
+.portadaOferta > h3{
+    margin: 0px auto 0.25em;
+    padding-top: 1em;
+    color: #2D383C;
+    text-align: center;
+    font-size: 54px;
+    width: 90%;
+    font-family:Arial;
+}
+
+.portadaOferta > p{
+    text-align: center;
+    margin: 0px auto 2em;
+    width: 70%;
+    font-size: 21px;
+    line-height: 1.25em;
+    font-family: Arial;
+}

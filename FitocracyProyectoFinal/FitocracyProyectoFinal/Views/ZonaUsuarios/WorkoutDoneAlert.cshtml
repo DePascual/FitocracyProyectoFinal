@@ -1,0 +1,13 @@
+﻿@model FitocracyProyectoFinal.Models.Usuario
+
+<div class="container center" style="text-align:center" ng-controller="userCtrl">
+    <h2 style="color:#0079ff">CONGRATULATIONS @Model.Username</h2>
+    <p>You have completed the Workout!!</p>
+    <p>You have <strong style="color:#0079ff; font-size:medium">@Model.Points</strong> and your level is <strong style="color:#0079ff; font-size:medium">@Model.Level</strong></p>
+
+    <h3 style="color:#0079ff">GOOD WORK!!!</h3>
+
+    <button id="buttonContinue" class="btn btn-primary btn-lg" style="width:300px;" ng-click="goHomeUsu()">Continues to enjoy</button>
+    <button id="buttonCoaching" class="btn btn-primary btn-lg" style="width:300px;" ng-click="goCoach()">Hire a Coach</button>
+</div>
+

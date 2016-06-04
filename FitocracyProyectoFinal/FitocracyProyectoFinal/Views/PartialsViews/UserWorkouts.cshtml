@@ -1,0 +1,16 @@
+﻿<div class="center" id="userWorkoutsDiv" style="background-color:#f8f8f8; border:1px solid #e7e7e7" ng-controller="trackCtrl">
+    <div id="recentWorkouts">
+        <h3>YOUR WORKOUTS</h3>
+        <div id="recentWorkouts">
+            <div ng-repeat="(key, value) in recentWorkouts">
+                <ul>
+                    <li>
+                        <a class="pointer" style="font-size:medium" ng-click="descripcionEnPartial($event)" data="{{value._id}}">{{value.Nombre}}</a>
+                        <span><small> {{key}}</small> {{value.Puntos}} points</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+

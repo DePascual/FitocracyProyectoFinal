@@ -175,6 +175,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\CoachController.cs" />
+    <Compile Include="Controllers\FotosController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PartialsViewsController.cs" />
     <Compile Include="Controllers\ZonaUsuariosController.cs" />
@@ -185,6 +187,7 @@
     <Compile Include="Models\Entrenadores.cs" />
     <Compile Include="Models\Entrenamientos.cs" />
     <Compile Include="Models\Evolution.cs" />
+    <Compile Include="Models\FotosClass.cs" />
     <Compile Include="Models\Levels.cs" />
     <Compile Include="Models\MongoDBcontext.cs" />
     <Compile Include="Models\SendEmailClass.cs" />
@@ -192,6 +195,7 @@
     <Compile Include="Models\Usuario.cs" />
     <Compile Include="Models\Workouts.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModels\EntrenamientoEntrenadoresVM.cs" />
     <Compile Include="ViewModels\WorkoutTracksTablaDatosVM.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -206,6 +210,25 @@
     <Content Include="Views\PartialsViews\ServicesPV.cshtml" />
     <Content Include="Views\Home\Login.cshtml" />
     <Content Include="Views\ZonaUsuarios\Home.cshtml" />
+    <Content Include="Views\Home\About.cshtml" />
+    <Content Include="Views\Home\Registro.cshtml" />
+    <Content Include="Views\Home\ChangePass.cshtml" />
+    <Content Include="Views\ZonaUsuarios\You.cshtml" />
+    <Content Include="Views\ZonaUsuarios\Track.cshtml" />
+    <Content Include="Views\ZonaUsuarios\Connect.cshtml" />
+    <Content Include="Views\ZonaUsuarios\Leaders.cshtml" />
+    <Content Include="Views\ZonaUsuarios\WorkoutDoneAlert.cshtml" />
+    <Content Include="Views\PartialsViews\EntrenamientoSmall.cshtml" />
+    <Content Include="Views\PartialsViews\TablaDatosWorkout.cshtml" />
+    <Content Include="Views\PartialsViews\WorkoutCarruselPV.cshtml" />
+    <Content Include="Views\PartialsViews\workoutsFactory.cshtml" />
+    <Content Include="Views\PartialsViews\UserInfo.cshtml" />
+    <Content Include="Views\PartialsViews\UserChangePass.cshtml" />
+    <Content Include="Views\PartialsViews\UserWorkouts.cshtml" />
+    <Content Include="Views\PartialsViews\UserEvolution.cshtml" />
+    <Content Include="Views\PartialsViews\SummaryLevels.cshtml" />
+    <Content Include="Views\Coach\Home.cshtml" />
+    <Content Include="Views\Coach\detalleEntrenamiento.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -215,6 +238,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Fotos\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

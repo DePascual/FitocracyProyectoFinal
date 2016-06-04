@@ -1,0 +1,21 @@
+﻿@model FitocracyProyectoFinal.Models.Usuario
+@using System.Web.Optimization
+
+
+@Styles.Render("~/Content/morris.css")
+
+<div class="center">
+    <div class="center" id="userEvolutionDiv" style="background-color:#f8f8f8; border:1px solid #e7e7e7" ng-controller="youCtrl">
+        USER EVOLUTION
+        <div id="graphic" style="height: 250px;"></div>
+
+        <script>
+
+        </script>
+
+    </div>
+</div>
+
+
+@Scripts.Render("~/Scripts/morris.js")
+@Scripts.Render("~/Scripts/raphael.js")

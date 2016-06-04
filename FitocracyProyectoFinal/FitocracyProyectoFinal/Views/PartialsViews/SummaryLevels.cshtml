@@ -1,0 +1,31 @@
+﻿@using FitocracyProyectoFinal.Models
+@model List<Levels>
+
+<div class="center">
+    SUMMARY LEVELS
+
+    <div class="table-responsive">
+        <table id="tablaLevels" class="table table-striped center" style="text-align:center; width:100%; height:100%">
+            <tr>
+                <th style="text-align:center;color:#1f2b32; font-size:medium">Levels</th>
+                <th style="text-align:center;color:#1f2b32; font-size:medium">Points</th>
+            </tr>
+            @{
+                foreach (var level in Model)
+                {
+                    <tr>
+                        <td>
+                            <p style="color:#1F2B32; font-size:medium;">@level.Level</p>
+                        </td>
+                        <td>
+                            <p style="font-size:medium;">@level.Points</p>
+                        </td>
+                    </tr>
+                }
+            }
+        </table>
+    </div>
+
+
+</div>
+

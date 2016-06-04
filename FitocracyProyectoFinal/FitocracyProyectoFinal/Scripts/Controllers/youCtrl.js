@@ -1,5 +1,5 @@
 ﻿angular.module('Fitocracy')
-    .controller('youCtrl', function ($scope, youService, trackService, $window, $location, $compile, ngTableParams) {
+    .controller('youCtrl', function ($scope, youService, trackService, $window, $location, $compile) {
 
 
         $scope.cargaPartial = function (obj) {
@@ -7,17 +7,17 @@
 
             switch (idLink) {
                 case "userInfo":
-                    $('#vistaParcial').load("http://localhost:1284/PartialsViews/UserInfo", function () {
+                    $('#vistaParcial').load("http://" + window.location.host + "/PartialsViews/UserInfo", function () {
                         $compile($('#vistaParcial'))($scope);
                     });
                     break;
                 case "userChangePass":
-                    $('#vistaParcial').load("http://localhost:1284/PartialsViews/UserChangePass", function () {
+                    $('#vistaParcial').load("http://" + window.location.host + "/PartialsViews/UserChangePass", function () {
                         $compile($('#vistaParcial'))($scope);
                     });
                     break;
                 case "userWorkouts":
-                    $('#vistaParcial').load("http://localhost:1284/PartialsViews/UserWorkouts", function () {
+                    $('#vistaParcial').load("http://" + window.location.host + "/PartialsViews/UserWorkouts", function () {
                         var getData = trackService.recuperaWorkoutsUsu();
                         getData.then(function (msg) {
                             $scope.recentWorkouts = msg.data;
@@ -27,7 +27,7 @@
 
                     break;
                 case "userEvolution":
-                    $('#vistaParcial').load("http://localhost:1284/PartialsViews/UserEvolution", function () {
+                    $('#vistaParcial').load("http://"+window.location.host+"/PartialsViews/UserEvolution", function () {
                         
                         $.getJSON('/PartialsViews/evolucionUsu',
                               function (data) {
@@ -46,7 +46,7 @@
                     });
                     break;
                 case "summaryLevels":
-                    $('#vistaParcial').load("http://localhost:1284/PartialsViews/SummaryLevels", function () {
+                    $('#vistaParcial').load("http://" + window.location.host + "/PartialsViews/SummaryLevels", function () {
 
                         $compile($('#vistaParcial'))($scope);
                     });
