@@ -120,4 +120,24 @@
             }
 
         };
+
+
+        $scope.Connect = function () {
+
+            var mensaje = $('#areaMessage').val();
+            var getData7 = youService.SendMessage(mensaje);
+
+            getData7.then(function (msg) {
+                if (msg.data == "True") {
+                    $('#modalMessageSend').modal('show');
+                } else {
+                    alert('no')
+                }
+            })
+        };
+
+        $scope.cerrarConnect = function () {
+            $('#modalMessageSend').modal('hide');
+            window.location.href = "#/Home_ZU";
+        };
     })

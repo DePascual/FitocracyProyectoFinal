@@ -36,7 +36,7 @@
                 <div class="input-group" id="divBirthday">
                     <span class="input-group-addon"><i class="fa fa-birthday-cake" aria-hidden="true"></i> Birthday: </span>
                     @{
-                        string birthday = Model.Birthday == null ? DateTime.Today.ToString("dd/MM/yyyy") : Model.Birthday.ToString("dd/MM/yyyy");
+                        string birthday = Model.Birthday == null ? DateTime.Now.ToString("dd/MM/yyyy") : Model.Birthday;
                     }
 
                     <input id="uBirthday" name="uBirthday" type="text" class="form-control ng-neutro" placeholder="@birthday" ng-model="uBirthday" />
@@ -46,7 +46,9 @@
         </div>
 
         <script>
-            $('#divBirthday input').datepicker({});
+            $('#divBirthday input').datepicker({
+                format: 'dd/mm/yyyy'
+            });
         </script>
 
         <!--DESCRIPTION-->

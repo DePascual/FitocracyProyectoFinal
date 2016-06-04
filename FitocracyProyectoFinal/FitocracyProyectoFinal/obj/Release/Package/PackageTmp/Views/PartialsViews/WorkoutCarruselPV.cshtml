@@ -1,0 +1,63 @@
+﻿@model FitocracyProyectoFinal.ViewModels.WorkoutTracksTablaDatosVM
+@using FitocracyProyectoFinal.Models
+
+<div class="center">
+    @{
+        Workouts workout = Model.workoutVM;
+        Tracks[] tracks = Model.tracksVM;
+    }
+    <div id="carruselVideo" class="container-fluid" style="height:100%">
+        <div class="row-fluid">
+            <div class="carousel slide" id="myCarousel" data-interval="false" ng-non-bindable>
+                <div class="carousel-inner">
+                    @{
+                        for (int i = 0; i < tracks.Count(); i++)
+                        {
+                            if (i == 0)
+                            {
+                                <div class="item active">
+                                    <div class="container">
+                                        <iframe src=@tracks[i].Link allowfullscreen="" frameborder="0" style="height:500px; width:100%"></iframe>
+                                    </div>
+                                    <div style="background-color:#000000; opacity:.5; width:800px">
+                                        <p style="font-size:large; color:#fff">@tracks[i].Nombre  @tracks[i].Series sets  @tracks[i].Repeticiones repetitions </p>
+                                    </div>
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="item">
+                                    <div class="container">
+                                        <iframe src=@tracks[i].Link allowfullscreen="" frameborder="0" style="height:500px; width:100%"></iframe>
+                                    </div>
+                                    <div style="background-color:#000000; opacity:.5; width:800px">
+                                        <p style="font-size:large; color:#fff">@tracks[i].Nombre  @tracks[i].Series sets  @tracks[i].Repeticiones repetitions </p>
+                                    </div>
+                                </div>
+                            }
+                        }
+                    }
+                </div>
+
+                <a data-slide="prev" href="#myCarousel" class="left carousel-control" target="_self">
+                    <i class="fa fa-chevron-left" aria-hidden="true" style="color:#0079FF"></i>
+                </a>
+                <a data-slide="next" href="#myCarousel" class="right carousel-control" target="_self">
+                    <i class="fa fa-chevron-right" aria-hidden="true" style="color:#0079FF"></i>
+                </a>
+            </div>
+        </div>
+
+    </div>
+    <div class="row">
+        <div class="col-lg-4"></div>
+        <div class="col-lg-4">
+            @using (Html.BeginForm("workoutDone", "ZonaUsuarios", FormMethod.Post))
+            {
+                <input type="hidden" name="_idWorkout" value="@workout._id" />
+                <button id="buttonDone" class="btn btn-primary btn-lg" type="submit">Workout Done!!!</button>
+            }
+        </div>
+        <div class="col-lg-4"></div>
+    </div>
+</div>

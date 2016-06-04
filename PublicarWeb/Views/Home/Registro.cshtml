@@ -1,0 +1,81 @@
+﻿<div id="modalRegistro" class="modal fade" tabindex="-1" role="dialog" ng-controller="registroCtrl">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Hey Stranger!</h4>
+            </div>
+
+            <div class="modal-body">
+                <p>Sign up below to continue your health and fitness journey.</p>
+
+                <div id="errorRegistro" style="display:none" class="text-center text-danger">
+                    <h3>The user already exists!!</h3>
+                </div>
+
+                <form name="registroForm" novalidate>
+
+                    <div class="row">
+                        <!--COLUMNA IZQUIERDA-->
+                        <div class="col-lg-6">
+                            <div class="form-group col-lg-12">
+                                <div class="input-group" ng-class="{'has-error':registroForm.uEmail.$invalid && !registroForm.uEmail.$pristine}">
+                                    <span class="input-group-addon">Email</span>
+                                    <input id="uEmail" name="uEmail" type="email" class="form-control" placeholder="userName@email.com" ng-model="uEmail" ng-required="true" />
+                                </div>
+                                <p ng-show="registroForm.uEmail.$invalid && !registroForm.uEmail.$pristine" class="help-block">Enter a valid email</p>
+                            </div>
+
+                            <div class="form-group col-lg-12">
+                                <div class="input-group" ng-class="{'has-error':registroForm.uPass.$invalid && !registroForm.uPass.$pristine}">
+                                    <span class="input-group-addon">Password</span>
+                                    <input id="uPass" name="uPass" type="password" class="form-control" placeholder="***********" ng-model="uPass" ng-required="true" ng-pattern="/^(?=.*\d)(?=.*[a-zA-Z])[a-zA-Z0-9]{7,}$/" />
+                                    @*(/^
+                                        (?=.*\d)                //should contain at least one digit
+                                        (?=.*[a-z])             //should contain at least one lower case
+                                        (?=.*[A-Z])             //should contain at least one upper case
+                                        [a-zA-Z0-9]{8,}         //should contain at least 8 from the mentioned characters
+                                        $/)*@
+                                </div>
+                                <p ng-show="registroForm.uPass.$invalid && !registroForm.uPass.$pristine" class="help-block">Enter a valid password</p>
+                            </div>
+                        </div>
+
+
+                        <!--COLUMNA DERECHA-->
+                        <div class="col-lg-6">
+                            <div class="form-group col-lg-12">
+                                <div class="input-group" ng-class="{'has-error':registroForm.uName.$invalid && !registroForm.uName.$pristine}">
+                                    <span class="input-group-addon">Username</span>
+                                    <input id="uName" name="uName" type="text" class="form-control" placeholder="CAROL" ng-model="uName" ng-required="true" ng-minlength="3" ng-maxlength="15" />
+                                </div>
+                                <p ng-show="registroForm.uName.$invalid && !registroForm.uName.$pristine" class="help-block">Enter a valid name</p>
+                            </div>
+
+                            <div class="form-group col-lg-12">
+                                <div class="input-group" ng-class="{'has-error':registroForm.uPassRep.$invalid && !registroForm.uPassRep.$pristine}">
+                                    <span class="input-group-addon">Password Again</span>
+                                    <input id="uPassRep" name="uPassRep" type="password" class="form-control" placeholder="***********" ng-model="uPassRep" ng-required="true" compare-to="uPass" />
+                                </div>
+                                <p ng-show="registroForm.uPassRep.$invalid && !registroForm.uPassRep.$pristine" class="help-block">The password must be the same</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group text-center">
+                        <input type="submit" class="btn btn-primary btn-block" ng-click="registrar(registroForm.$valid)" ng-disabled="registroForm.$invalid" value="Create An Account" />
+                        @*<button  type="submit" class="btn btn-primary btn-block" ng-submit="registrar(registroForm.$valid)" ng-disabled="registroForm.$invalid">Create An Account</button>*@
+                    </div>
+
+                </form>
+            </div>
+
+            <div class="modal-footer">
+                <span class="pull-left"><a ng-click="irALogin()" class="pointer">I have already a Fitocracy account, silly!</a></span>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+

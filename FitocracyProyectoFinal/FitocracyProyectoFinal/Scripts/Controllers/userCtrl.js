@@ -49,5 +49,7 @@
 
         $scope.goCoach = function () {
             $location.path("/Coach");
-        }
+        };
+
+        
     })

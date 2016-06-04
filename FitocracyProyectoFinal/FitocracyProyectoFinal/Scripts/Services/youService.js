@@ -29,5 +29,19 @@
             return response;
         };
 
+        this.SendMessage = function (mensaje) {
+            var response = $http({
+                method: "post",
+                url: "/ZonaUsuarios/Message",
+                data: { 'areaMessage': mensaje },
+                dataType: "json"
+            }).success(function (data, status, headers, config) {
+                response = data;
+            }).error(function (data, status, headers, config) {
+                response = status;
+            });
+            return response;
+        };
+
 
     })

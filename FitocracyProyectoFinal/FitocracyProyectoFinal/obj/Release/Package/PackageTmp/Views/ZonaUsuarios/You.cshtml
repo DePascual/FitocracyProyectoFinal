@@ -1,0 +1,80 @@
+﻿@model FitocracyProyectoFinal.Models.Usuario
+
+<div class="row">
+    <!--COLUMNA IZQUIERDA-->
+    <div class="col-lg-4">
+        <img src='@Url.Action("downloadPhoto", "Fotos", new { id= Model._id })' height="300" width="300" />
+        @using (Html.BeginForm("uploadPhoto", "ZonaUsuarios", new { id = Model._id }, FormMethod.Post, new { enctype = "multipart/form-data" }))
+            {
+            <input type="file" name="file" id="file" style="width: 100%;" class="center" />
+            <input type="hidden" name="idUsu" value="@Model._id" />
+            <input type="submit" value="Upload Image:" class="btn btn-upload btn-block center" />
+        }
+    </div>
+    <!--COLUMNA DERECHA-->
+    <div class="col-lg-8 pull-left" style="text-align:left; background-color:#f8f8f8; height:300px; border:1px solid #e7e7e7">
+        <h2>USER INFO</h2>
+        <p><strong>User Name:</strong> @Model.Username</p>
+        <p><strong>Email:</strong> @Model.Email</p>
+        <p><strong>Description:</strong> @Model.Description</p>
+    </div>
+</div>
+<br />
+<br />
+
+<div class="row" style="background-color:#1F2B32; color:#FFF; text-align:center" height="80px">
+    <div class="col-lg-4"><h2>@Model.Level</h2><small>Level</small></div>
+    <div class="col-lg-4"><h2>@Model.Points</h2><small>Points</small></div>
+    <div class="col-lg-4">
+        @{
+            if (Model.Age == 0)
+            {
+                <h2>?</h2><small>Age</small>
+            }
+            else
+            {
+                <h2>@Model.Age</h2><small>Age</small>
+            }
+        }
+    </div>
+</div>
+<br />
+<hr />
+<div class="row" ng-controller="youCtrl">
+    <!--COLUMNA IZQUIERDA-->
+    <div class="col-lg-4">
+        <h4><a class="pointer" id="link_divYou" ng-click="showDiv('divYou', $event)" show="false">User Info<i class="fa fa-chevron-up" aria-hidden="true"></i></a></h4>
+        <div id="divYou" style="display:none">
+            <ul>
+                <li><h4><a class="pointer" id="userInfo" ng-click="cargaPartial($event)">About you</a><br /></h4></li>
+                <li><h4><a class="pointer" id="userChangePass" ng-click="cargaPartial($event)">Change Password</a><br /></h4></li>
+            </ul>
+        </div>
+        <h4><a class="pointer" id="userWorkouts" ng-click="cargaPartial($event)">My Workouts Done</a><br /></h4>
+        <h4><a class="pointer" id="userEvolution" ng-click="cargaPartial($event)">My Evolution</a><br /></h4>
+        <h4><a class="pointer" id="summaryLevels" ng-click="cargaPartial($event)">Summary Levels</a><br /></h4>
+    </div>
+    <!--COLUMNA DERECHA-->
+    <div class="col-lg-8 pull-left" style="text-align:left;" id="vistaParcial">
+
+    </div>
+</div>
+
+<div id="modalChangesOK" class="modal fade" tabindex="-1" role="dialog" ng-controller="youCtrl">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>CHANGES OK!!</h2>
+            </div>
+
+            <div class="modal-body">
+                <p>Your changes has been modified correctly!!</p>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" ng-click="cerrarChangesOK()">Close</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+

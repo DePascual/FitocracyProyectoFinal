@@ -1,0 +1,42 @@
+﻿@model  FitocracyProyectoFinal.ViewModels.EntrenamientoEntrenadoresVM
+@using FitocracyProyectoFinal.Models
+
+<style>
+    .redondo img {
+        border: 2px solid grey;
+        margin: 0;
+        padding: 0;
+        border-radius: 800px;
+        overflow: hidden;
+    }
+</style>
+@{
+    Entrenadores entrenador = Model.entrenador;
+    Entrenamientos entrenamiento = Model.entrenamiento;
+}
+
+<div class="container" style="height:650px; background:#fff; padding-top:25px;">
+    <div>
+        <a ng-href=@Url.Action("irAdetalleEntrenamiento", "Coach", new { idEntrenador = entrenador._id, idEntrenamiento = entrenamiento._id})>
+            <img src=@Url.Action("showFotoEntrenamiento", "Fotos", new { id = entrenamiento._id }) height="300" width="300" />
+        </a>
+    </div>
+
+    <div class="redondo" style="display:inline-block; background:#724788; color:#fff; width:300px; vertical-align:top; text-align:left; padding:10px">
+        <img src='@Url.Action("showEntrenador", "Fotos", new { id = entrenador._id})' height="50" width="50" />
+        <p style="font-size:medium; display:inline"> @entrenador.Nombre @entrenador.Apellidos</p>
+    </div>
+
+    <h3>@entrenamiento.NombreEntrenamiento</h3>
+    <p>@entrenamiento.Descripcion</p>
+
+    <div class="center">
+        <a ng-href=@Url.Action("irAdetalleEntrenamiento", "Coach", new { idEntrenador = entrenador._id, idEntrenamiento = entrenamiento._id})>
+            <input type="submit" value=" $ @entrenamiento.Precio / month" class="btn button-entrenamiento btn-block" />
+        </a>
+    </div>
+</div>
+
+
+
+

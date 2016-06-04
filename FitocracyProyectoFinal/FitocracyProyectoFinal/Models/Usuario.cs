@@ -37,7 +37,7 @@ namespace FitocracyProyectoFinal.Models
 
         private Dictionary<string, Workouts> _CustomWorkouts;
 
-        private DateTime _Birthday;
+        private string _Birthday;
 
         public string Email
         {
@@ -144,7 +144,7 @@ namespace FitocracyProyectoFinal.Models
         }
 
 
-        public DateTime Birthday
+        public string Birthday
         {
             get
             {

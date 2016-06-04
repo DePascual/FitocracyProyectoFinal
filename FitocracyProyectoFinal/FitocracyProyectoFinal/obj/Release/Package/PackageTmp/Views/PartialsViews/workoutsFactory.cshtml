@@ -1,0 +1,96 @@
+﻿@using FitocracyProyectoFinal.Models
+@model List<Tracks>
+<div class="center" ng-controller="trackCtrl">
+    <h2>WORKOUTS FACTORY</h2>
+    <p>
+        In this section you can design your own workouts.
+        First put a name to your training and then choose the exercise, select the number of sets and repetitions. Do it as many times as you need.
+        Finally, do not forget to keep and train !!
+    </p>
+
+    <div style="background-color:#f8f8f8; border:1px solid #e7e7e7; padding:20px">
+        <form name="myWorkoutForm" novalidate>
+            <!--WORKOUT NAME-->
+            <div class="row">
+                <div class="form-group col-lg-9">
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="fa fa-align-justify"></i> Name of workout: </span>
+                        <input id="Name" name="wName" type="text" class="form-control ng-neutro" placeholder="My workout" ng-model="wName" />
+                    </div>
+                </div>
+
+                <div class="form-group col-lg-3 text-center">
+                    <input type="submit" class="btn btn-primary" ng-click="GuardaMyWork()" value="Save My Workout" />
+                    <br />
+                </div>
+            </div>
+
+            <!--MY EXERCISES-->
+            <div class="table-responsive">
+                <table id="tablaMisEjercicios" class="table table-striped center" style="text-align:center; width:100%; height:100%">
+                    <thead>
+                        <tr>
+                            <th style="text-align:center;color:#1f2b32; font-size:medium">Work</th>
+                            <th style="text-align:center;color:#1f2b32; font-size:medium">Sets</th>
+                            <th style="text-align:center;color:#1f2b32; font-size:medium">Repetitions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="w in myWorks">
+                            <td>
+                                <p style="color:#1F2B32; font-size:medium;">
+                                    {{w.Nombre}}
+                                </p>
+                            </td>
+                            <td><p style="font-size:medium;">{{w.Series}}</p></td>
+                            <td><p style="font-size:medium;">{{w.Repeticiones}}</p></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </form>
+
+        <br />
+        <hr />
+        <br />
+
+        <div id="selector">
+            <!--SELECTOR-->
+            <div class="row">
+                <!--TRACK-->
+                <div class="col-lg-4">
+                    <p>Track: </p>
+                    <select id="selectTrack" ng-model="newWork.Work" name="Work" class="form-control ng-neutro">
+                        @foreach (var item in Model)
+                        {
+                            <option id="@item._id" link="@item.Link">@item.Nombre</option>
+                        }
+                    </select>
+                </div>
+                <!--SETS-->
+                <div class="form-group col-lg-3">
+                    <div class="input-group">
+                        <p>Sets</p>
+                        <input id="Sets" name="Set" type="text" class="form-control ng-neutro" placeholder="0" ng-model="newWork.Set" />
+                    </div>
+                </div>
+                <!--REPETITIONS-->
+                <div class="col-lg-3">
+                    <div class="input-group">
+                        <p>Repetitions</p>
+                        <input id="Repetitions" name="Rep" type="text" class="form-control ng-neutro" placeholder="0" ng-model="newWork.Rep" />
+                    </div>
+                </div>
+                <!--PUSH-->
+                <div class="col-lg-2">
+                    <div class="input-group center-block">
+                        <p>Save</p>
+                        <button type="button" class="btn btn-primary" ng-click="Save()" style="vertical-align:bottom">Add</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+

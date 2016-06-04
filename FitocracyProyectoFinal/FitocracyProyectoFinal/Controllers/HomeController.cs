@@ -13,12 +13,13 @@ namespace FitocracyProyectoFinal.Controllers
     public class HomeController : Controller
     {
         private MongoDBcontext _dbContext;
+        private Usuario _usuario;
+
         public HomeController()
         {
             _dbContext = new MongoDBcontext();
         }
-
-        private Usuario _usuario;
+     
         public Usuario usuario
         {
             get
@@ -30,7 +31,6 @@ namespace FitocracyProyectoFinal.Controllers
                 this._usuario = value;
             }
         }
-
 
         //View que trabaja a modo de Layout de la sección
         public ActionResult Index()

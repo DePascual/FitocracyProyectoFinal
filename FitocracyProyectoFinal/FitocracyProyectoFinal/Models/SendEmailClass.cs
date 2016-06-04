@@ -52,5 +52,46 @@ namespace FitocracyProyectoFinal.Models
             nuevoCorreo.Dispose();
 
         }
+
+
+        public static void EmailConnect(Usuario usu, string message)
+        {
+
+            MailMessage nuevoCorreo = new MailMessage();
+            nuevoCorreo.To.Add(new MailAddress("mail.pruebas.daw@gmail.com"));
+            nuevoCorreo.From = new MailAddress("mail.pruebas.daw@gmail.com");
+            nuevoCorreo.Subject = usu.Username + " needs our help!!! IMPORTANT!!";
+            nuevoCorreo.IsBodyHtml = true;
+
+            string body = "Email sendding for " + usu.Username + "!!<br /><hr/> ";
+            body += "<span style='color:#1da6da'> " + message + "</span>";
+            body += "<hr/>";
+            body += "Email user: " + usu.Email + "<br/>";
+            body += "User code: " + usu._id + "<br/>";
+            body += "<hr />";
+            body += "FITOCRACY Team!!";
+            nuevoCorreo.Body = body;
+
+            SmtpClient servidor = new SmtpClient();
+            servidor.Host = "smtp.gmail.com";
+            servidor.Port = 587;
+            servidor.EnableSsl = true;
+            servidor.DeliveryMethod = SmtpDeliveryMethod.Network;
+            servidor.Credentials = new NetworkCredential("mail.pruebas.daw@gmail.com", "avellanedadaw");
+            servidor.Timeout = 2000;
+
+            ServicePointManager.ServerCertificateValidationCallback = new System.Net.Security.RemoteCertificateValidationCallback(AcceptAllCertifications);
+            try
+            {
+                servidor.Send(nuevoCorreo);
+            }
+            catch (Exception ex)
+            {
+                string e = ex.ToString();
+            }
+
+            nuevoCorreo.Dispose();
+
+        }
     }
 }

@@ -1,0 +1,132 @@
+﻿@model FitocracyProyectoFinal.ViewModels.EntrenamientoEntrenadoresVM
+@using FitocracyProyectoFinal.Models
+@using FitocracyProyectoFinal.ViewModels
+
+<style>
+    .redondo img {
+        border: 2px solid #fff;
+        margin: 0;
+        padding: 0;
+        border-radius: 800px;
+        overflow: hidden;
+    }
+
+    h1 {
+        color: #fff;
+    }
+
+    h2 {
+        color: #fff;
+    }
+</style>
+
+@{
+    EntrenamientoEntrenadoresVM vM = (EntrenamientoEntrenadoresVM)TempData["vM"];
+
+    Entrenamientos entrenamiento = (Entrenamientos)vM.entrenamiento;
+    Entrenadores entrenador = (Entrenadores)vM.entrenador;
+}
+
+<div class="row" style="background-color:#333">
+    <div class="col-lg-12" style="margin-top:30px;">
+        <div class="col-lg-4"></div>
+        <div class="col-lg-4">
+            <img src=@Url.Action("showFotoEntrenamiento", "Fotos", new { id = entrenamiento._id }) height="300" width="300" />
+        </div>
+        <div class="col-lg-4"></div>
+        <hr />
+    </div>
+</div>
+
+<div class="row" style="background-color:#333;">
+    <div class="col-lg-12">
+        <!--COLUMNA IZQUIERDA-->
+        <div class="col-lg-2">
+            <div class="redondo" style="display:inline-block; color:#fff; vertical-align:top; text-align:left; padding:10px">
+                <img src='@Url.Action("showEntrenador", "Fotos", new { id = entrenador._id })' height="70" width="70" />
+            </div>
+            <p style="color:#8F9A9E; font-size:small">@entrenador.Nombre @entrenador.Apellidos </p>
+            <p style="color:#8F9A9E; font-size:small">@entrenador.Descripcion</p>
+        </div>
+        <!--COLUMNA DERECHA-->
+        <div class="col-lg-10">
+            <h1>@entrenamiento.NombreEntrenamiento - Starts Today!</h1>
+            <hr />
+
+            <div class="col-lg-5">
+                <h2>Who it's for</h2>
+                <p style="color:#8F9A9E">@entrenamiento.Who</p>
+
+                <hr />
+                <h2>Goals</h2>
+                <ul style="color:#8F9A9E">
+                    @{
+                        List<string> goal = entrenamiento.Goals.Split(new char[] { '.' }).ToList();
+                        foreach (var g in goal)
+                        {
+                            if (g != "")
+                            {
+                                <li>@g</li>
+                            }
+
+                        }
+                    }
+                </ul>
+
+                <hr />
+                <h2>Schedule</h2>
+                <ul style="color:#8F9A9E">
+                    <li>@entrenamiento.Duracion weeks</li>
+                </ul>
+            </div>
+
+            <div class="col-lg-5">
+                <h2>Requirements</h2>
+                <ul style="color:#8F9A9E">
+                    @{
+                        List<string> req = entrenamiento.Requirements.Split(new char[] { '.' }).ToList();
+                        foreach (var r in req)
+                        {
+                            if (r != "")
+                            {
+                                <li>@r</li>
+                            }
+                        }
+                    }
+                </ul>
+
+                <hr />
+                <h2>What you Get</h2>
+                <ul style="color:#8F9A9E">
+                    @{
+                        List<string> what = entrenamiento.WhatYouGet.Split(new char[] { '.' }).ToList();
+                        foreach (var w in what)
+                        {
+                            if (w != "")
+                            {
+                                <li>@w</li>
+                            }
+                        }
+                    }
+                </ul>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row" style="background-color:#333;">
+    <div class="col-lg-12 center" style="margin-bottom:50px;">
+        <div class="col-lg-4"></div>
+        <div class="col-lg-4">
+            <a href="@Url.Action("Compra", "Coach", new { idEntr = entrenamiento._id})">
+                @{
+                    string url = Request.Url.ToString();
+                    Session["url"] = url;
+                }
+                <input type="submit" value="Join Now" class="btn btn-primary btn-block" style="font-size:larger" />
+            </a>
+        </div>
+        <div class="col-lg-4"></div>
+    </div>
+</div>

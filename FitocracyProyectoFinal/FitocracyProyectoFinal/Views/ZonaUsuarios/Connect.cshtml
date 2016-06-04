@@ -1,4 +1,33 @@
-﻿<div class="text-center jumbotron">
-    CONNECT ZONA USUARIOS
+﻿@model FitocracyProyectoFinal.Models.Usuario
+
+<h3>Hey @Model.Username</h3>
+<p>Please tell us the following: your age, gender, fitness history, fitness goals, and what kind of equipment/gym access you have. We'll get back to you with our recommendation as quickly as we can.</p>
+<div class="row" ng-controller="youCtrl">
+        <div class="container input-group text-center">
+            <textarea id="areaMessage" name="areaMessage" rows="10" cols="150" placeholder="We're not around but we still want to hear from you!  Leave us a note:"></textarea>
+        </div>
+        <br />
+        <div class="container text-center">
+            <input type="submit" class="btn btn-primary btn-lg" ng-click="Connect()" value="Send" />
+            @*<button type="submit" class="btn btn-primary btn-lg" style="width:300px;">Send</button>*@
+        </div>   
 </div>
+
+<div id="modalMessageSend" class="modal fade" tabindex="-1" role="dialog" ng-controller="youCtrl">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>CONNECT OK!!</h2>
+            </div>
+
+            <div class="modal-body">
+                <p>Your email has sent correctly!! We're working to answer as soon as possible!!</p>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" ng-click="cerrarConnect()">Close</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
 

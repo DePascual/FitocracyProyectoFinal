@@ -4,6 +4,7 @@ using MongoDB.Driver;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Web;
@@ -19,7 +20,7 @@ namespace FitocracyProyectoFinal.Controllers
         {
             _dbContext = new MongoDBcontext();
         }
-           
+
         public Usuario usuario
         {
             get
@@ -38,20 +39,20 @@ namespace FitocracyProyectoFinal.Controllers
         }
         public ActionResult You()
         {
-            //Usuario usuario = (Usuario)Session["infoUsuario"];
-            //var collection = _dbContext.GetDatabase().GetCollection<Usuario>("usuarios");
-            //var usuCollection = collection.AsQueryable().Where(x => x._id == usuario._id).FirstOrDefault();
-
             var usu = _dbContext.Usuarios.Find<Usuario>(x => x._id == usuario._id).SingleOrDefault();
+            int puntos = pointsToNextLevel(usu);
+            ViewData["pointsToNextLevel"] = puntos;
+            ViewData["nextLevel"] = usu.Level + 1;
             return View(usu);
         }
+       
         public ActionResult Track()
         {
             return View(usuario);
         }
         public ActionResult Connect()
         {
-            return View();
+            return View(usuario);
         }
         public ActionResult Leaders()
         {
@@ -60,7 +61,8 @@ namespace FitocracyProyectoFinal.Controllers
 
         public ActionResult WorkoutDoneAlert()
         {
-            return View(usuario);
+            var usu = _dbContext.Usuarios.Find<Usuario>(x => x._id == usuario._id).SingleOrDefault();
+            return View(usu);
         }
 
 
@@ -81,8 +83,20 @@ namespace FitocracyProyectoFinal.Controllers
             {
                 var workCollection = _dbContext.Workouts.Find<Workouts>(x => x._id == _idWorkout).FirstOrDefault();
                 var usuCollection = _dbContext.Usuarios.Find<Usuario>(x => x._id == usuario._id).SingleOrDefault();
-
                 usuCollection.WorkoutsUser.Add(DateTime.Now.ToString(), workCollection);
+                _dbContext.Usuarios.UpdateOne<Usuario>(x => x._id == usuario._id, Builders<Usuario>.Update.Set(x => x.WorkoutsUser, usuCollection.WorkoutsUser));
+
+
+                usuCollection.Points += workCollection.Puntos;
+                _dbContext.Usuarios.UpdateOne<Usuario>(x => x._id == usuario._id, Builders<Usuario>.Update.Set(x => x.Points, usuCollection.Points));
+
+                int levelActual = compruebaNivelActual(usuCollection.Points);
+                if (levelActual != usuCollection.Level)
+                {
+                    usuCollection.Level = levelActual;
+                    _dbContext.Usuarios.UpdateOne<Usuario>(x => x._id == usuario._id, Builders<Usuario>.Update.Set(x => x.Level, usuCollection.Level));
+                }
+
 
                 string yearActual = DateTime.Today.Year.ToString();
                 string mesActual = DateTime.Today.Month.ToString();
@@ -102,7 +116,7 @@ namespace FitocracyProyectoFinal.Controllers
                 }
 
                 var dicMeses = usuCollection.EvolutionUser.Where(x => x.Key == yearActual).SingleOrDefault().Value;
-               
+
                 int puntosMes = 0;
 
                 foreach (var mes in dicMeses)
@@ -116,8 +130,8 @@ namespace FitocracyProyectoFinal.Controllers
 
                 dicMeses[mesActual] = puntosMes;
 
-                _dbContext.Usuarios.UpdateOne<Usuario>(x => x._id == usuario._id, Builders<Usuario>.Update.Set(x=>x.EvolutionUser[yearActual], dicMeses));
-
+                _dbContext.Usuarios.UpdateOne<Usuario>(x => x._id == usuario._id, Builders<Usuario>.Update.Set(x => x.EvolutionUser[yearActual], dicMeses));
+               
             }
             catch (Exception e)
             {
@@ -127,6 +141,41 @@ namespace FitocracyProyectoFinal.Controllers
             return Redirect("http://" + host + ":" + port + "/#/WorkoutDoneAlert");
         }
 
+        public int compruebaNivelActual(int points)
+        {
+            int levelAct = 0;
+            var levelList = _dbContext.Levels.Find<Levels>(new BsonDocument()).ToList();
+
+            for (int i = 0; i < levelList.Count(); i++)
+            {
+                if (points > levelList[i].Points && points < levelList[i + 1].Points)
+                {
+                    levelAct = levelList[i].Level;
+                }
+
+                if (points == levelList[i].Points)
+                {
+                    levelAct = levelList[i].Level;
+                }
+            }
+
+            return levelAct;
+        }
+
+        public int pointsToNextLevel(Usuario usu)
+        {
+            int puntos = 0;
+
+            var levelList = _dbContext.Levels.Find<Levels>(new BsonDocument()).ToList();
+            for (int i = 0; i < levelList.Count(); i++)
+            {
+                if (levelList[i].Level == usu.Level)
+                {
+                    puntos = levelList[i + 1].Points - usu.Points;
+                }
+            }
+            return puntos;
+        }
 
         [HttpPost]
         public string recuperaWorkouts()
@@ -222,12 +271,6 @@ namespace FitocracyProyectoFinal.Controllers
 
                     try
                     {
-                        //var collection = _dbContext.GetDatabase().GetCollection<Usuario>("usuarios");
-                        //var usu = collection.AsQueryable().Where(x => x._id == idUsu).FirstOrDefault();
-                        //var fotoInicial = usu.Foto;
-                        //usu.Foto = array;
-                        //collection.Save(usu);
-
                         _dbContext.Usuarios.UpdateOne<Usuario>(x => x._id == usuario._id, Builders<Usuario>.Update.Set(x => x.Foto, array));
                     }
                     catch (Exception e)
@@ -247,14 +290,16 @@ namespace FitocracyProyectoFinal.Controllers
         {
             try
             {
-                if(user.Username != null)
+                if (user.Username != null)
                 {
                     _dbContext.Usuarios.UpdateOne<Usuario>(x => x._id == usuario._id, Builders<Usuario>.Update.Set(x => x.Username, user.Username));
                 }
 
                 if (user.Birthday != null)
                 {
+                    int edad = calculaEdad(user.Birthday);
                     _dbContext.Usuarios.UpdateOne<Usuario>(x => x._id == usuario._id, Builders<Usuario>.Update.Set(x => x.Birthday, user.Birthday));
+                    _dbContext.Usuarios.UpdateOne<Usuario>(x => x._id == usuario._id, Builders<Usuario>.Update.Set(x => x.Age, edad));
                 }
 
                 if (user.Description != null)
@@ -273,12 +318,18 @@ namespace FitocracyProyectoFinal.Controllers
             }
         }
 
+        private int calculaEdad(string birthday)
+        {
+            var fecha = birthday.Split(new char[] { ' ' })[0].Replace("{", "").Replace("}", "");
+            DateTime nac = DateTime.ParseExact(birthday, "dd/MM/yyyy", new CultureInfo("es-ES"));
+            int edad = DateTime.Today.AddTicks(-nac.Ticks).Year - 1;
+            return edad;
+        }
 
         [HttpPost]
         public bool UpdatePassword(string passOld, string passNew)
         {
             EncriptacionClass encriptar = new EncriptacionClass();
-            //string passEncriptadaOld = encriptar.Encrit(passOld);
             string passEncriptadaNew = encriptar.Encrit(passNew);
 
             try
@@ -308,14 +359,6 @@ namespace FitocracyProyectoFinal.Controllers
                 var usuCollection = _dbContext.Usuarios.Find<Usuario>(x => x._id == usuario._id).FirstOrDefault();
                 usuCollection.CustomWorkouts.Add(DateTime.Now.ToString(), workout);
                 _dbContext.Usuarios.UpdateOne<Usuario>(x => x._id == usuario._id, Builders<Usuario>.Update.Set(x => x.CustomWorkouts, usuCollection.CustomWorkouts));
-
-                //collection.Save(usuCollection);
-                //Dictionary<string, Workouts> dic = new Dictionary<string, Workouts>
-                //{
-                //    { DateTime.Now.ToString(), workout }
-                //};
-                //_dbContext.Usuarios.UpdateOne<Usuario>(x => x._id == usuario._id, Builders<Usuario>.Update.Push<Dictionary<string, Workouts>>(e => e.CustomWorkouts, dic));
-                //var update = Builders<Usuario>.Update.Push(e => e.CustomWorkouts, dic);
                 var usuCollection2 = _dbContext.Usuarios.Find<Usuario>(x => x._id == usuario._id).FirstOrDefault();
                 return true;
 
@@ -325,6 +368,21 @@ namespace FitocracyProyectoFinal.Controllers
                 string exc = e.ToString();
                 return false;
             }
+        }
+
+
+        [HttpPost]
+        public bool Message(string areaMessage)
+        {
+            try
+            {
+                SendEmailClass.EmailConnect(usuario, areaMessage);
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }                  
         }
 
     }
