@@ -17,6 +17,7 @@ namespace FitocracyProyectoFinal.Models
         public const string LEVELS_COLLECTION_NAME = "levels";
         public const string TRACKS_COLLECTION_NAME = "tracks";
         public const string WORKOUTS_COLLECTION_NAME = "workouts";
+        public const string TARJETAS_COLLECTION_NAME = "tarjetasUsuario";
 
 
         private static readonly IMongoClient _client;
@@ -69,6 +70,11 @@ namespace FitocracyProyectoFinal.Models
         public IMongoCollection<Workouts> Workouts
         {
             get { return _database.GetCollection<Workouts>(WORKOUTS_COLLECTION_NAME); }
+        }
+
+        public IMongoCollection<TarjetasUsuario> Tarjetas
+        {
+            get { return _database.GetCollection<TarjetasUsuario>(TARJETAS_COLLECTION_NAME); }
         }
 
         private static string desencriptaConnectionString()

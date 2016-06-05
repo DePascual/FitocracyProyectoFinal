@@ -193,6 +193,7 @@
     <Compile Include="Models\Levels.cs" />
     <Compile Include="Models\MongoDBcontext.cs" />
     <Compile Include="Models\SendEmailClass.cs" />
+    <Compile Include="Models\TarjetasUsuario.cs" />
     <Compile Include="Models\Tracks.cs" />
     <Compile Include="Models\Usuario.cs" />
     <Compile Include="Models\UsuSession.cs" />

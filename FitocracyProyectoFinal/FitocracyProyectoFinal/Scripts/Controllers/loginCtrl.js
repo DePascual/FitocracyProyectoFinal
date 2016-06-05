@@ -31,13 +31,8 @@
                         } else {
                             $window.sessionStorage["infoUsuario"] = msg.data;
                         }
-
-
                             $location.path("/ZonaUsuarios");
-                            $("#modalLogin").modal('hide');
-                        
-
-                        
+                            $("#modalLogin").modal('hide');                                              
                     }
                 })
             } else {

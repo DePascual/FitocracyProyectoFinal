@@ -33,6 +33,8 @@ namespace FitocracyProyectoFinal.Models
 
         private Dictionary<string, Workouts> _WorkoutsUser;
 
+        private Dictionary<string, Entrenamientos> _EntrenamientosCompradosUser;
+
         private Dictionary<string, Dictionary<string, int>> _EvolutionUser;
 
         private Dictionary<string, Workouts> _CustomWorkouts;
@@ -193,6 +195,19 @@ namespace FitocracyProyectoFinal.Models
             set
             {
                 _CustomWorkouts = value;
+            }
+        }
+
+        public Dictionary<string, Entrenamientos> EntrenamientosCompradosUser
+        {
+            get
+            {
+                return _EntrenamientosCompradosUser;
+            }
+
+            set
+            {
+                _EntrenamientosCompradosUser = value;
             }
         }
     }

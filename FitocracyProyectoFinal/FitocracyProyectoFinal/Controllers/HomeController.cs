@@ -102,6 +102,7 @@ namespace FitocracyProyectoFinal.Controllers
             usuario.Foto = ImgToDb(new FileInfo(Server.MapPath("~//Content//Imagenes//Profiles//nophoto.png")));
             usuario.WorkoutsUser = new Dictionary<string, Workouts>();
             usuario.CustomWorkouts = new Dictionary<string, Workouts>();
+            usuario.EntrenamientosCompradosUser = new Dictionary<string, Entrenamientos>();
 
             int yearActual = DateTime.Today.Year;
             int mesActual = DateTime.Today.Month;

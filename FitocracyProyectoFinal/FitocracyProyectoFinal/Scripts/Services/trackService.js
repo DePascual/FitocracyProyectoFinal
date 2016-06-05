@@ -92,4 +92,18 @@
             return response;
         };
 
+        this.Compra = function (tarjetaUsuario, idEntrenamiento) {
+            var response = $http({
+                method: "post",
+                url: "/Coach/compraEntrenamiento",
+                data: {"tarjetaUsuario": JSON.stringify(tarjetaUsuario), "entrenamiento" : idEntrenamiento},
+                dataType: "json"
+            }).success(function (result) {
+                response = result;
+            }).error(function (data, status, headers, config) {
+                response = status;
+            });
+            return response;
+        };
+
     })

@@ -2,6 +2,7 @@
 using FitocracyProyectoFinal.ViewModels;
 using MongoDB.Bson;
 using MongoDB.Driver;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -60,9 +61,42 @@ namespace FitocracyProyectoFinal.Controllers
         }
 
         [HttpPost]
-        public bool recuperaEntrenamiento(string idEntrenamiento)
+        public string recuperaEntrenamiento(string idEntrenamiento)
         {
-            return true;
+            var entrenamiento = _dbContext.Entrenamientos.Find<Entrenamientos>(x => x._id == idEntrenamiento).SingleOrDefault();
+            return JsonConvert.SerializeObject(entrenamiento);
+        }
+
+        [HttpPost]
+        public bool compraEntrenamiento(List<string> tarjetaUsuario, string idEntrenamiento)
+        {
+            try
+            {
+                //EncriptacionClass encriptacion = new EncriptacionClass();
+                //var numeroEncriptado = encriptacion.Encrit(tarjetaUsuario.CardNumber);
+                //var seguridadEncriptada = encriptacion.Encrit(tarjetaUsuario.SecurityCode);
+
+                //var existeTarjeta = _dbContext.Tarjetas.Find<TarjetasUsuario>(x => x.CardNumber == numeroEncriptado && x.SecurityCode == seguridadEncriptada).Any() ? true : false;
+
+                //if (!existeTarjeta)
+                //{
+                //    tarjetaUsuario.CardNumber = numeroEncriptado;
+                //    tarjetaUsuario.SecurityCode = seguridadEncriptada;
+                //    _dbContext.Tarjetas.InsertOne(tarjetaUsuario);                   
+                //}
+
+                //var usuCollection = _dbContext.Usuarios.Find<Usuario>(x => x._id == usuario._id).SingleOrDefault();
+                //var entrenamiento = _dbContext.Entrenamientos.Find<Entrenamientos>(x => x._id == idEntrenamiento).SingleOrDefault();
+                //usuCollection.EntrenamientosCompradosUser.Add(DateTime.Now.ToString(), entrenamiento);
+                //_dbContext.Usuarios.UpdateOne<Usuario>(x => x._id == usuario._id, Builders<Usuario>.Update.Set(x => x.EntrenamientosCompradosUser, usuCollection.EntrenamientosCompradosUser));
+
+                return true;
+
+            }
+            catch (Exception)
+            {
+                return false;
+            }                      
         }
     }
 }

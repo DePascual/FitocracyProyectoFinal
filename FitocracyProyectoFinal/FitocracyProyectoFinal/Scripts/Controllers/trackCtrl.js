@@ -1,5 +1,5 @@
 ﻿angular.module('Fitocracy')
-    .controller('trackCtrl', function ($scope, trackService, $window, $compile, $location) {
+    .controller('trackCtrl', function ($scope, trackService, loginService, $window, $compile, $location) {
         recuperaPreMadeWorkouts();
         recuperaAllTracks();
 
@@ -186,23 +186,66 @@
             })
         };
 
-        $scope.compraEntrenamiento = function () {
-
-            $('#modalCompraEntrenamiento').modal('show');
-
-        //    var entrenamiento = $('#idEntrenamiento').val();
-
-        //    var getData8 = trackService.recuperaEntrenamiento(entrenamiento);
-        //    getData8.then(function (msg) {
-        //        if (msg.data != "False") {
-        //            alert('Guardado')
-        //        } else {
-        //            alert('Error guardando')
-        //        }
-        //    })
+        var entrenamientoRecuperado;
+        $scope.compraEntrenamiento = function () {         
+            $('#modalCompraEntrenamiento').modal('show');                  
         };
 
         $scope.cerrarCompraEntrenamiento = function () {
             $('#modalCompraEntrenamiento').modal('hide');
         };
+
+        $scope.loginDesdeCompra = function (isValid) {
+            if (isValid) {
+                var usuario = {
+                    Username: $scope.uName,
+                    Password: $scope.uPass,
+                };
+
+                var getData = loginService.UserLogin(usuario);
+                getData.then(function (msg) {
+                    if (msg.data == "null") {
+                        $("#errorLogin").css('display', 'block');
+                    }
+                    else {
+                        $("#loginOK").css('display', 'block');
+                    }
+                });
+            }
+        };
+
+        $scope.comprar = function (isValid) {
+            if (isValid) {
+                var tarjetaUsuario = {
+                    _id: null,
+                    CardNumber: $scope.uNumTarjeta,
+                    SecurityCode: $scope.uNumSecurity,
+                    Month: $scope.uAnyoTarjeta,
+                    Year: $scope.uMesTarjeta
+                };
+                //var entrenamientoRecuperado = recuperaEntrenamiento($('#idEntrenamiento').val())
+
+                var getData9 = trackService.Compra(tarjetaUsuario, $('#idEntrenamiento').val());
+                getData9.then(function (msg) {
+                    if (msg.data == "True") {
+                        alert('ok')
+                    }
+                    else {
+                       alert('error')
+                    }
+                });
+            }
+        };
+
+        function recuperaEntrenamiento(idEntrenamiento) {
+            var getData8 = trackService.recuperaEntrenamiento(idEntrenamiento);
+            getData8.then(function (msg) {
+                if (msg.data != "False") {
+                    return msg.data;
+                } else {
+                    alert('Error guardando')
+                }
+            })
+        };
+
     })
