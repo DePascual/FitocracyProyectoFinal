@@ -77,4 +77,19 @@
             return response;
         };
 
+
+        this.recuperaEntrenamiento = function (entrenamiento) {
+            var response = $http({
+                method: "post",
+                url: "/Coach/recuperaEntrenamiento",
+                data: { "idEntrenamiento": entrenamiento },
+                dataType: "json"
+            }).success(function (result) {
+                response = result;
+            }).error(function (data, status, headers, config) {
+                response = status;
+            });
+            return response;
+        };
+
     })

@@ -63,20 +63,12 @@ namespace FitocracyProyectoFinal.Controllers
 
         public ActionResult workoutsFactory()
         {
-
-            //var collection = _dbContext.GetDatabase().GetCollection<Tracks>("tracks");
-            //var tracks = collection.FindAll().ToList();
-
             var tracks = _dbContext.Tracks.Find<Tracks>(new BsonDocument()).ToList();
             return View(tracks);
         }
 
         public ActionResult UserInfo()
-        {
-            //Usuario usuario = (Usuario)Session["infoUsuario"];
-            //var collection = _dbContext.GetDatabase().GetCollection<Usuario>("usuarios");
-            //var usuCollection = collection.AsQueryable().Where(x => x._id == usuario._id).FirstOrDefault();
-
+        {          
             var usuCollection = _dbContext.Usuarios.Find<Usuario>(x => x._id == usuario._id).SingleOrDefault();
             return View(usuCollection);
         }
@@ -96,9 +88,6 @@ namespace FitocracyProyectoFinal.Controllers
         }
         public ActionResult SummaryLevels()
         {
-            //var collection = _dbContext.GetDatabase().GetCollection<Levels>("levels");
-            //var levels = collection.FindAll().ToList();
-
             var levels = _dbContext.Levels.Find<Levels>(new BsonDocument()).ToList();
 
             return View(levels);
@@ -107,12 +96,7 @@ namespace FitocracyProyectoFinal.Controllers
         [HttpGet]
         public string evolucionUsu()
         {
-            List<Evolution> datos = new List<Evolution>();
-
-            //Usuario usuario = (Usuario)Session["infoUsuario"];
-            //var collection = _dbContext.GetDatabase().GetCollection<Usuario>("usuarios");
-            //var usuCollection = collection.AsQueryable().Where(x => x._id == usuario._id).FirstOrDefault();
-
+            List<Evolution> datos = new List<Evolution>();        
             var usuCollection = _dbContext.Usuarios.Find<Usuario>(x => x._id == usuario._id).SingleOrDefault();
 
             string yearActual = DateTime.Today.Year.ToString();

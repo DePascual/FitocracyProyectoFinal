@@ -128,6 +128,7 @@
     <Content Include="Content\Imagenes\Icons\HomeGeneral_Motivation.PNG" />
     <Content Include="Content\Imagenes\Icons\HomeGeneral_Nutritional.PNG" />
     <Content Include="Content\Imagenes\Icons\HomeGeneral_Workouts.PNG" />
+    <Content Include="Content\Imagenes\leader.PNG" />
     <Content Include="Content\Imagenes\logo.png" />
     <Content Include="Content\Imagenes\portadaServicios.PNG" />
     <Content Include="Content\Imagenes\Portadas\portada.jpg" />

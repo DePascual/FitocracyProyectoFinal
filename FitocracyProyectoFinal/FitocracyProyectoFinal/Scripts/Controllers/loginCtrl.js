@@ -32,10 +32,12 @@
                             $window.sessionStorage["infoUsuario"] = msg.data;
                         }
 
-                        //$window.sessionStorage["infoUsuario"] = JSON.stringify(msg.data);
-                        //$window.sessionStorage["infoUsuario"] = msg.data;
-                        $location.path("/ZonaUsuarios");
-                        $("#modalLogin").modal('hide');
+
+                            $location.path("/ZonaUsuarios");
+                            $("#modalLogin").modal('hide');
+                        
+
+                        
                     }
                 })
             } else {

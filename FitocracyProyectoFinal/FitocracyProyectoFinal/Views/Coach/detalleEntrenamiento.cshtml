@@ -22,10 +22,11 @@
 
 @{
     EntrenamientoEntrenadoresVM vM = (EntrenamientoEntrenadoresVM)TempData["vM"];
-
     Entrenamientos entrenamiento = (Entrenamientos)vM.entrenamiento;
     Entrenadores entrenador = (Entrenadores)vM.entrenador;
 }
+
+
 
 <div class="row" style="background-color:#333">
     <div class="col-lg-12" style="margin-top:30px;">
@@ -118,15 +119,129 @@
 <div class="row" style="background-color:#333;">
     <div class="col-lg-12 center" style="margin-bottom:50px;">
         <div class="col-lg-4"></div>
-        <div class="col-lg-4">
-            <a href="@Url.Action("Compra", "Coach", new { idEntr = entrenamiento._id})">
-                @{
-                    string url = Request.Url.ToString();
-                    Session["url"] = url;
-                }
-                <input type="submit" value="Join Now" class="btn btn-primary btn-block" style="font-size:larger" />
-            </a>
+        <div class="col-lg-4" ng-controller="trackCtrl">
+            <input type="hidden" id="idEntrenamiento" value="@entrenamiento._id" />
+            <input type="submit" class="btn btn-primary btn-block" ng-click="compraEntrenamiento()" value="Join Now" />
         </div>
         <div class="col-lg-4"></div>
     </div>
 </div>
+
+<!--MODAL-->
+<div id="modalCompraEntrenamiento" class="modal fade" tabindex="-1" role="dialog" ng-controller="trackCtrl">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 style="color:#333">BUY THIS WORKOUT!!</h2>
+            </div>
+
+            <div class="modal-body">
+                <form name="compraForm">
+                    @{
+                        if (Session["infoUsuario"] == null)
+                        {
+                            <p>Upppssss!! You're not logged in. Please enter your credentials</p>
+                            <div ng-controller="loginCtrl">
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <div class="form-group col-lg-8">
+                                            <div class="input-group" ng-class="{'has-error':compraForm.uName.$invalid && !compraForm.uName.$touched}">
+                                                <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                                                <input id="uName" name="uName" type="text" class="form-control ng-neutro" placeholder="userName" ng-model="uName" ng-required="true" ng-minlength="3" ng-maxlength="15" />
+                                            </div>
+                                            <p ng-show="compraForm.uName.$invalid && !compraForm.uName.$touched" class="help-block">Enter a valid name</p>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="input-group" ng-class="{'has-error':compraForm.uPass.$invalid && !compraForm.uPass.$touched}">
+                                            <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+                                            <input id="uPass" name="uPass" type="password" class="form-control ng-neutro" placeholder="*********" ng-model="uPass" ng-required="true" ng-pattern="/^(?=.*\d)(?=.*[a-zA-Z])[a-zA-Z0-9]{7,}$/" />
+                                        </div>
+                                        <p ng-show="compraForm.uPass.$invalid && !compraForm.uPass.$touched" class="help-block">Enter a valid password</p>
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <p>If you still do not have an account, what are you waiting for? <span><a ng-click="irARegistro()" class="pointer">I want to create a new account</a></span></p>
+                                </div>
+                            </div>
+                            <hr />
+                        }
+                        else
+                        {
+                            Usuario usuario = (Usuario)Session["infoUsuario"];
+
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="form-group col-lg-8">
+                                        <div class="input-group">
+                                            <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                                            <input id="uName" name="uName" type="text" class="form-control ng-neutro" placeholder="@usuario.Username" ng-model="uName" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+                                        <input id="uPass" name="uPass" type="password" class="form-control ng-neutro" placeholder="*********" ng-model="uPass"/>
+                                    </div>                           
+                                </div>
+                            </div>
+
+                            <div ng-controller="loginCtrl">
+                                <a ng-click="irALogin()" class="pointer">I don't want to use this account</a>
+                            </div>
+                        }
+                    }
+
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="form-group col-lg-8">
+                                <div class="input-group" ng-class="{'has-error':compraForm.uNumTarjeta.$invalid && !compraForm.uNumTarjeta.$touched}">
+                                    <span class="input-group-addon"><i class="fa fa-credit-card"></i></span>
+                                    <input id="uNumTarjeta" name="uNumTarjeta" type="text" class="form-control" placeholder="**** **** **** ****" ng-model="uNumTarjeta" ng-required="true" ng-pattern="/^[0-9]{16}$/"/>
+                                </div>
+                                <p ng-show="compraForm.uNumTarjeta.$invalid && !compraForm.uNumTarjeta.$touched" class="help-block">The card number is invalid</p>
+                            </div>
+                        </div>                      
+                        <div class="col-lg-6">
+                            <div class="input-group" ng-class="{'has-error':compraForm.uNumSecurity.$invalid && !compraForm.uNumSecurity.$touched}">
+                                <span class="input-group-addon"><i class="fa fa-credit-card"></i></span>
+                                <input id="uNumSecurity" name="uNumSecurity" type="text" class="form-control" placeholder="***" ng-model="uNumSecurity" ng-required="true" ng-pattern="/^[0-9]{3}$/"/>
+                            </div>
+                            <p ng-show="compraForm.uNumSecurity.$invalid && !compraForm.uNumSecurity.$touched" class="help-block">The securty code is invalid</p>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="form-group col-lg-8">
+                                <div class="input-group" ng-class="{'has-error':compraForm.uAnyoTarjeta.$invalid && !compraForm.uAnyoTarjeta.$touched}">
+                                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                    <input id="uAnyoTarjeta" name="uNumTarjeta" type="text" class="form-control" placeholder="@DateTime.Now.Year.ToString()" ng-model="uAnyoTarjeta" ng-required="true" ng-pattern="/[0-9]{2,4}$/"/>
+                                </div>
+                                <p ng-show="compraForm.uNumTarjeta.$invalid && !compraForm.uNumTarjeta.$touched" class="help-block">Expiration year</p>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="input-group" ng-class="{'has-error':compraForm.uMesTarjeta.$invalid && !compraForm.uMesTarjeta.$touched}">
+                                <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                <input id="uMesTarjeta" name="uMesTarjeta" type="text" class="form-control" placeholder="@DateTime.Now.Month.ToString()" ng-model="uMesTarjeta" ng-required="true" ng-pattern="/^[0-9]{1,2}$/"/>
+                            </div>
+                            <p ng-show="compraForm.uMesTarjeta.$invalid && !compraForm.uMesTarjeta.$touched" class="help-block">Expiration month</p>
+                        </div>
+                    </div>
+
+                    <div class="form-group text-center">
+                        <input type="submit" class="btn btn-primary btn-lg" ng-click="comprar(compraForm.$valid)" ng-disabled="compraForm.$invalid" value="Submit" />
+                    </div>
+
+                </form>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" ng-click="cerrarCompraEntrenamiento()">Close</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

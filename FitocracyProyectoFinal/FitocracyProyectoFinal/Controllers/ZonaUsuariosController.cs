@@ -56,7 +56,8 @@ namespace FitocracyProyectoFinal.Controllers
         }
         public ActionResult Leaders()
         {
-            return View(usuario);
+           var listLeaders = _dbContext.Usuarios.Find<Usuario>(new BsonDocument()).Sort(Builders<Usuario>.Sort.Descending(x=>x.Points)).ToList();
+            return View(listLeaders);
         }
 
         public ActionResult WorkoutDoneAlert()

@@ -58,5 +58,11 @@ namespace FitocracyProyectoFinal.Controllers
         {
             return View();
         }
+
+        [HttpPost]
+        public bool recuperaEntrenamiento(string idEntrenamiento)
+        {
+            return true;
+        }
     }
 }

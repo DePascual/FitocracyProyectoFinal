@@ -1,5 +1,60 @@
-﻿<div class="text-center jumbotron">
-    LEADERS ZONA USUARIOS
+﻿@using FitocracyProyectoFinal.Models
+@model List<Usuario>
+
+<style>
+    .redondo img {
+        border: 2px solid #fff;
+        margin: 0;
+        padding: 0;
+        border-radius: 800px;
+        overflow: hidden;
+    }
+</style>
+
+<div class="table-responsive">
+    <table id="tablaWorkout" class="table table-striped center" style="text-align:center; width:100%; height:100%">
+        <tr>
+            <td rowspan="2" style="width:30%; border-right:1px solid grey; border-left:1px solid grey">
+                <img src="~/Content/Imagenes/leader.PNG" class="center" style="width:320px; height:320px" />
+                <h3 style="text-align:center">Community Spotlight</h3>
+                <p style="text-align:center">Take some yoga, throw in a little cardio and mix with weight training and you've got Omyeah, Fitocracy's self professed spiritual gansta. A leader in our Yogis and Yoginis group, Omyeah is one strong, zen lovin', awesome cat momma. Connect with her and other Fito Yoginis in our Lady Lifters group.</p>
+            </td>
+            <td style="width:70%; border-right:1px solid grey; vertical-align:top">
+                <table id="tablaLeaders" class="table center" style="text-align:center; width:100%; height:100%; vertical-align:top">
+                    
+                    <tr style="background-color:#f4f5f5">
+                        <th style="text-align:center">Standing</th>
+                        <th style="text-align:center">Name</th>
+                        <th style="text-align:center">Level</th>
+                        <th style="text-align:center">Points</th>
+                    </tr>
+
+                    @{
+                        for (int i = 0; i < Model.Count(); i++)
+                        {
+                            <tr>
+                                <td>
+                                    @{
+                                        int pos = i + 1;
+                                    }
+                                    <p style="color:#1F2B32; font-size:medium; float:left; font-size:30px; vertical-align:central">@pos</p>
+                                </td>
+                                <td>
+                                    <img src='@Url.Action("downloadPhoto", "Fotos", new { id = Model[i]._id})' class="pull-left" style="margin:0; padding:0; border:0; outline:0; height:100px; width:100px" />
+                                    <p style="font-size:medium; display:inline-block">@Model[i].Username</p>
+                                </td>
+                                <td>
+                                    <p style="font-size:medium;">@Model[i].Level</p>
+                                </td>
+                                <td>
+                                    <p style="font-size:medium;">@Model[i].Points</p>
+                                </td>
+                            </tr>
+                                        }
+
+                    }
+                </table>
+            </td>
+        </tr>
+    </table>
 </div>
-
-

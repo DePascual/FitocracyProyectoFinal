@@ -1,5 +1,5 @@
 ﻿angular.module('Fitocracy')
-    .controller('trackCtrl', function ($scope, trackService, $window, $compile) {
+    .controller('trackCtrl', function ($scope, trackService, $window, $compile, $location) {
         recuperaPreMadeWorkouts();
         recuperaAllTracks();
 
@@ -184,5 +184,25 @@
                     alert('Error guardando')
                 }
             })
-        }
+        };
+
+        $scope.compraEntrenamiento = function () {
+
+            $('#modalCompraEntrenamiento').modal('show');
+
+        //    var entrenamiento = $('#idEntrenamiento').val();
+
+        //    var getData8 = trackService.recuperaEntrenamiento(entrenamiento);
+        //    getData8.then(function (msg) {
+        //        if (msg.data != "False") {
+        //            alert('Guardado')
+        //        } else {
+        //            alert('Error guardando')
+        //        }
+        //    })
+        };
+
+        $scope.cerrarCompraEntrenamiento = function () {
+            $('#modalCompraEntrenamiento').modal('hide');
+        };
     })
