@@ -9,32 +9,47 @@
         //Funciones
         $scope.logear = function (isValid) {
             if (isValid) {
-                var usuario = {
-                    Username: $scope.uName,
-                    Password: $scope.uPass,
-                    _id: "null"
-                };
 
-                //Envio de datos a loginService
-                var getData = loginService.UserLogin(usuario);
+                if ($('#entrenador').hasClass('ng-not-empty')) {
+                    var entrenador = {
+                        CoachName: $scope.uName,
+                        CoachPass: $scope.uPass
+                    };
 
-                //Respuesta de loginService
-                getData.then(function (msg) {
-                    if (msg.data == "null") {
-                        $("#errorLogin").css('display', 'block');
-                        $('#uName').removeClass('ng-valid').addClass('ng-invalid');
-                        $('#uPass').removeClass('ng-valid').addClass('ng-invalid');
-                    }
-                    else {
-                        if (window.location.host == "localhost:1284") {
-                            $window.sessionStorage["infoUsuario"] = JSON.stringify(msg.data);
-                        } else {
-                            $window.sessionStorage["infoUsuario"] = msg.data;
+                    var getDataEntrenador = loginService.EntrenadorLogin(entrenador);
+                    getDataEntrenador.then(function (msg) {
+                        if (msg.data == "null") {
+                            $("#errorLogin").css('display', 'block');
                         }
+                        else {
+                            $window.sessionStorage["infoEntrenador"] = JSON.stringify(msg.data);
+                            $location.path("/ZonaEntrenadores");
+                            $("#modalLogin").modal('hide');
+                        }
+                    });
+                } else {
+                    var usuario = {
+                        Username: $scope.uName,
+                        Password: $scope.uPass,
+                        _id: "null"
+                    };
+
+                    //Envio de datos a loginService
+                    var getData = loginService.UserLogin(usuario);
+                    //Respuesta de loginService
+                    getData.then(function (msg) {
+                        if (msg.data == "null") {
+                            $("#errorLogin").css('display', 'block');
+                            //$('#uName').removeClass('ng-valid').addClass('ng-invalid');
+                            //$('#uPass').removeClass('ng-valid').addClass('ng-invalid');
+                        }
+                        else {
+                            $window.sessionStorage["infoUsuario"] = JSON.stringify(msg.data);
                             $location.path("/ZonaUsuarios");
-                            $("#modalLogin").modal('hide');                                              
-                    }
-                })
+                            $("#modalLogin").modal('hide');
+                        }
+                    });
+                }
             } else {
                 alert('Algo va mal en el login');
             }
@@ -44,7 +59,7 @@
             $("#modalLogin").modal('hide');
             window.location.href = "#/Registro";
         };
-    
+
         $scope.alertmsg = function () {
             $("#errorLogin").css('display', 'block');
         };
@@ -70,6 +85,6 @@
             window.location.href = "#/ChangePass";
         };
 
-       
+
 
     });

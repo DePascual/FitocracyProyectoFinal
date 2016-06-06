@@ -16,5 +16,8 @@ namespace FitocracyProyectoFinal.Models
         public string Apellidos { get; set; }
         public string Descripcion { get; set; }
         public byte[] Foto { get; set; }
+
+        public string CoachName { get; set; }
+        public string CoachPass { get; set; }
     }
 }

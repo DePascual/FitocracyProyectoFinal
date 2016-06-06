@@ -66,13 +66,6 @@ namespace FitocracyProyectoFinal.Controllers
 
         #region Metodos POST 
         //Metodos
-        [HttpPost]
-        public bool Logeo(Usuario usuario)
-        {
-            var existeUsu = _dbContext.Usuarios.Find(x => x.Username == usuario.Username && x.Password == usuario.Password).Any() ? true : false;
-            return existeUsu;
-        }
-
         public string loginRecupUsuario(Usuario usuario)
         {
             EncriptacionClass encriptar = new EncriptacionClass();
@@ -84,6 +77,24 @@ namespace FitocracyProyectoFinal.Controllers
                 var usu = _dbContext.Usuarios.Find<Usuario>(x => x.Username == usuario.Username && x.Password == passEncriptada).SingleOrDefault();
                 Session["infoUsuario"] = usu;
                 return JsonConvert.SerializeObject(usu);
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
+
+        public string loginRecupEntrenador(Entrenadores entrenador)
+        {
+            EncriptacionClass encriptar = new EncriptacionClass();
+            string passEncriptada = encriptar.Encrit(entrenador.CoachPass);
+
+            //Usuario usu = new Usuario();
+            try
+            {
+                var entrenadorColl = _dbContext.Entrenadores.Find<Entrenadores>(x => x.CoachName == entrenador.CoachName && x.CoachPass == passEncriptada).SingleOrDefault();
+                Session["infoEntrenador"] = entrenadorColl;
+                return JsonConvert.SerializeObject(entrenadorColl);
             }
             catch (Exception)
             {

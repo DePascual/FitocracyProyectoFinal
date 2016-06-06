@@ -14,6 +14,21 @@
             return response;
         };
 
+
+        this.EntrenadorLogin = function (Entrenador) {
+            var response = $http({
+                method: "post",
+                url: "/Home/loginRecupEntrenador",
+                data: JSON.stringify(Entrenador),
+                dataType: "json"
+            }).success(function (result) {
+                response = result;
+            }).error(function (data, status, headers, config) {
+                response = status;
+            });
+            return response;
+        };
+
         this.NuevaPass = function (uEmail) {
             var response = $http({
                 method: "post",

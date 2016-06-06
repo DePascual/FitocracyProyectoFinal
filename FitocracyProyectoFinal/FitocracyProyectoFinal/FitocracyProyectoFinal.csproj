@@ -159,6 +159,7 @@
     <None Include="Properties\PublishProfiles\Fitocracy.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\Controllers\changePassCtrl.js" />
+    <Content Include="Scripts\Controllers\entrenadoresCtrl.js" />
     <Content Include="Scripts\Controllers\loginCtrl.js" />
     <Content Include="Scripts\Controllers\registroCtrl.js" />
     <Content Include="Scripts\Controllers\trackCtrl.js" />
@@ -182,6 +183,7 @@
     <Compile Include="Controllers\FotosController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PartialsViewsController.cs" />
+    <Compile Include="Controllers\ZonaEntrenadoresController.cs" />
     <Compile Include="Controllers\ZonaUsuariosController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -234,6 +236,7 @@
     <Content Include="Views\PartialsViews\SummaryLevels.cshtml" />
     <Content Include="Views\Coach\Home.cshtml" />
     <Content Include="Views\Coach\detalleEntrenamiento.cshtml" />
+    <Content Include="Views\ZonaEntrenadores\Home.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

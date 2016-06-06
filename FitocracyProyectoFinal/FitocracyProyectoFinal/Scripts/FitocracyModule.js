@@ -40,8 +40,6 @@ var configFunction = function ($routeProvider, $locationProvider) {
          })
 
 
-
-
          .when('/ZonaUsuarios', {
              templateUrl: 'ZonaUsuarios/Home',
              controller: 'userCtrl'
@@ -71,7 +69,12 @@ var configFunction = function ($routeProvider, $locationProvider) {
         })
          .when('/WorkoutDoneAlert', {
              templateUrl: 'ZonaUsuarios/WorkoutDoneAlert',
-         });
+         })
+
+        .when('/ZonaEntrenadores', {
+            templateUrl: 'ZonaEntrenadores/Home',
+            controller: 'entrenadoresCtrl'
+        });
 
 
 
