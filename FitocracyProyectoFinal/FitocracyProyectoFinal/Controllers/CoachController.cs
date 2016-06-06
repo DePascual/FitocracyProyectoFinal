@@ -6,6 +6,8 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 
@@ -64,39 +66,67 @@ namespace FitocracyProyectoFinal.Controllers
         public string recuperaEntrenamiento(string idEntrenamiento)
         {
             var entrenamiento = _dbContext.Entrenamientos.Find<Entrenamientos>(x => x._id == idEntrenamiento).SingleOrDefault();
+            TempData["entrenamientoCompra"] = entrenamiento;
             return JsonConvert.SerializeObject(entrenamiento);
         }
 
         [HttpPost]
-        public bool compraEntrenamiento(List<string> tarjetaUsuario, string idEntrenamiento)
+        public bool compraEntrenamiento(TarjetasUsuario datosTarjeta)
         {
             try
             {
-                //EncriptacionClass encriptacion = new EncriptacionClass();
-                //var numeroEncriptado = encriptacion.Encrit(tarjetaUsuario.CardNumber);
-                //var seguridadEncriptada = encriptacion.Encrit(tarjetaUsuario.SecurityCode);
+                EncriptacionClass encriptacion = new EncriptacionClass();
+                var numeroEncriptado = encriptacion.Encrit(datosTarjeta.CardNumber);
+                var seguridadEncriptada = encriptacion.Encrit(datosTarjeta.SecurityCode);
 
-                //var existeTarjeta = _dbContext.Tarjetas.Find<TarjetasUsuario>(x => x.CardNumber == numeroEncriptado && x.SecurityCode == seguridadEncriptada).Any() ? true : false;
+                var existeTarjeta = _dbContext.Tarjetas.Find<TarjetasUsuario>(x => x.CardNumber == numeroEncriptado
+                                                                        && x.SecurityCode == seguridadEncriptada
+                                                                        && x.Year == datosTarjeta.Year
+                                                                        && x.Month == datosTarjeta.Month)
+                                                                        .Any() ? true : false;
 
-                //if (!existeTarjeta)
-                //{
-                //    tarjetaUsuario.CardNumber = numeroEncriptado;
-                //    tarjetaUsuario.SecurityCode = seguridadEncriptada;
-                //    _dbContext.Tarjetas.InsertOne(tarjetaUsuario);                   
-                //}
+                if (!existeTarjeta)
+                {
+                    datosTarjeta.CardNumber = numeroEncriptado;
+                    datosTarjeta.SecurityCode = seguridadEncriptada;
+                    _dbContext.Tarjetas.InsertOne(datosTarjeta);
+                }
 
-                //var usuCollection = _dbContext.Usuarios.Find<Usuario>(x => x._id == usuario._id).SingleOrDefault();
-                //var entrenamiento = _dbContext.Entrenamientos.Find<Entrenamientos>(x => x._id == idEntrenamiento).SingleOrDefault();
-                //usuCollection.EntrenamientosCompradosUser.Add(DateTime.Now.ToString(), entrenamiento);
-                //_dbContext.Usuarios.UpdateOne<Usuario>(x => x._id == usuario._id, Builders<Usuario>.Update.Set(x => x.EntrenamientosCompradosUser, usuCollection.EntrenamientosCompradosUser));
+                if (Convert.ToInt32(datosTarjeta.Month) < DateTime.Now.Month || Convert.ToInt32(datosTarjeta.Year) < DateTime.Now.Year)
+                {
+                    return false;
+                }
+                else
+                {
+                    var usuCollection = _dbContext.Usuarios.Find<Usuario>(x => x._id == usuario._id).SingleOrDefault();
+                    var entrenamiento = (Entrenamientos)TempData["entrenamientoCompra"];
+                    usuCollection.EntrenamientosCompradosUser.Add(DateTime.Now.ToString(), entrenamiento);
+                    _dbContext.Usuarios.UpdateOne<Usuario>(x => x._id == usuario._id, Builders<Usuario>.Update.Set(x => x.EntrenamientosCompradosUser, usuCollection.EntrenamientosCompradosUser));
+                }
 
                 return true;
 
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 return false;
-            }                      
+            }
+        }
+
+        [HttpGet]
+        public void mandarEntrenamiento()
+        {
+            var usu = _dbContext.Usuarios.Find<Usuario>(x => x._id == usuario._id).SingleOrDefault();
+            var entrenamiento = usu.EntrenamientosCompradosUser.Values.Last();
+
+            try
+            {
+                SendEmailClass.EmailEntrenamientoComprado(entrenamiento, usuario);
+            }
+            catch (Exception e)
+            {
+                string ex = e.ToString();
+            }
         }
     }
 }

@@ -14,7 +14,7 @@ namespace FitocracyProyectoFinal.Models
         public string _id { get; set; }      
         public string CardNumber { get; set; }       
         public string SecurityCode { get; set; }
-        public string Month { get; set; }
         public string Year { get; set; }
+        public string Month { get; set; }
     }
 }

@@ -96,7 +96,7 @@
             var response = $http({
                 method: "post",
                 url: "/Coach/compraEntrenamiento",
-                data: {"tarjetaUsuario": JSON.stringify(tarjetaUsuario), "entrenamiento" : idEntrenamiento},
+                data: JSON.stringify(tarjetaUsuario) ,
                 dataType: "json"
             }).success(function (result) {
                 response = result;

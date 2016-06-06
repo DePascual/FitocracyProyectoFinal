@@ -127,7 +127,7 @@
     </div>
 </div>
 
-<!--MODAL-->
+<!--MODAL COMPRA ENTRENAMIENTO-->
 <div id="modalCompraEntrenamiento" class="modal fade" tabindex="-1" role="dialog" ng-controller="trackCtrl">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -174,40 +174,47 @@
                                 <span><a ng-click="irARegistro()" class="pointer">I want to create a new account</a></span>
                             </div>
                         </div>
-                            <hr />
+                        <hr />
                     }
                     else
                     {
                         Usuario usuario = (Usuario)Session["infoUsuario"];
-
-                        <div class="row">
-                            <div class="col-lg-6">
-                                <div class="form-group col-lg-8">
+                        <div>
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="form-group col-lg-8">
+                                        <div class="input-group">
+                                            <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                                            <input id="uName" name="uName" type="text" class="form-control ng-neutro" placeholder="@usuario.Username" ng-model="uName" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
                                     <div class="input-group">
-                                        <span class="input-group-addon"><i class="fa fa-user"></i></span>
-                                        <input id="uName" name="uName" type="text" class="form-control ng-neutro" placeholder="@usuario.Username" ng-model="uName" />
+                                        <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+                                        <input id="uPass" name="uPass" type="password" class="form-control ng-neutro" placeholder="*********" ng-model="uPass" />
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-lg-6">
-                                <div class="input-group">
-                                    <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-                                    <input id="uPass" name="uPass" type="password" class="form-control ng-neutro" placeholder="*********" ng-model="uPass" />
-                                </div>
+
+                            <div ng-controller="loginCtrl">
+                                <a ng-click="irALogin()" class="pointer">I don't want to use this account</a>
                             </div>
                         </div>
 
-                        <div ng-controller="loginCtrl">
-                            <a ng-click="irALogin()" class="pointer">I don't want to use this account</a>
-                        </div>
+                        <hr />
                     }
                 }
                 <form name="compraForm">
+                    <div id="errorCompra" style="display:none" class="text-center text-danger">
+                        <h3>The expiration date is invalid!!</h3>
+                    </div>
+
                     <div class="row">
                         <div class="col-lg-6">
                             <div class="input-group" ng-class="{'has-error':compraForm.uNumTarjeta.$invalid && !compraForm.uNumTarjeta.$touched}">
                                 <span class="input-group-addon">Card number:</span>
-                                <input id="uNumTarjeta" name="uNumTarjeta" type="text" class="form-control" style="width:100%" placeholder="**** **** **** ****" ng-model="uNumTarjeta" ng-required="true" ng-pattern="/^[0-9]{16}$/" />
+                                <input id="uNumTarjeta" name="uNumTarjeta" type="text" class="form-control ng-neutro" style="width:100%" placeholder="**** **** **** ****" ng-model="uNumTarjeta" ng-required="true" ng-pattern="/^[0-9]{16}$/" />
                             </div>
                             <p ng-show="compraForm.uNumTarjeta.$invalid && !compraForm.uNumTarjeta.$touched" class="help-block">The card number is invalid</p>
                         </div>
@@ -215,30 +222,30 @@
                         <div class="col-lg-6">
                             <div class="input-group" ng-class="{'has-error':compraForm.uNumSecurity.$invalid && !compraForm.uNumSecurity.$touched}">
                                 <span class="input-group-addon">Security code:</span>
-                                <input id="uNumSecurity" name="uNumSecurity" type="text" class="form-control" placeholder="***" ng-model="uNumSecurity" ng-required="true" ng-pattern="/^[0-9]{3}$/" />
+                                <input id="uNumSecurity" name="uNumSecurity" type="text" class="form-control ng-neutro" placeholder="***" ng-model="uNumSecurity" ng-required="true" ng-pattern="/^[0-9]{3}$/" />
                             </div>
                             <p ng-show="compraForm.uNumSecurity.$invalid && !compraForm.uNumSecurity.$touched" class="help-block">The securty code is invalid</p>
                         </div>
                     </div>
-
+                    <br /><br />
                     <div class="row">
                         <div class="col-lg-6">
                             <div class="input-group" ng-class="{'has-error':compraForm.uAnyoTarjeta.$invalid && !compraForm.uAnyoTarjeta.$touched}">
                                 <span class="input-group-addon">Expiration year:</span>
-                                <input id="uAnyoTarjeta" name="uNumTarjeta" type="text" class="form-control" placeholder="@DateTime.Now.Year.ToString()" ng-model="uAnyoTarjeta" ng-required="true" ng-pattern="/[0-9]{2,4}$/" />
+                                <input id="uAnyoTarjeta" name="uAnyoTarjeta" type="text" class="form-control ng-neutro" placeholder="@DateTime.Now.Year.ToString()" ng-model="uAnyoTarjeta" ng-required="true" ng-pattern="/^[0-9]{2,4}$/" />
                             </div>
-                            <p ng-show="compraForm.uNumTarjeta.$invalid && !compraForm.uNumTarjeta.$touched" class="help-block">Expiration year</p>
+                            <p ng-show="compraForm.uAnyoTarjeta.$invalid && !compraForm.uAnyoTarjeta.$touched" class="help-block">Expiration year</p>
                         </div>
 
                         <div class="col-lg-6">
                             <div class="input-group" ng-class="{'has-error':compraForm.uMesTarjeta.$invalid && !compraForm.uMesTarjeta.$touched}">
                                 <span class="input-group-addon">Expiration month:</span>
-                                <input id="uMesTarjeta" name="uMesTarjeta" type="text" class="form-control" placeholder="@DateTime.Now.Month.ToString()" ng-model="uMesTarjeta" ng-required="true" ng-pattern="/^[0-9]{1,2}$/" />
+                                <input id="uMesTarjeta" name="uMesTarjeta" type="text" class="form-control ng-neutro" placeholder="@DateTime.Now.Month.ToString()" ng-model="uMesTarjeta" ng-required="true" ng-pattern="/^[0-9]{1,2}$/" />
                             </div>
                             <p ng-show="compraForm.uMesTarjeta.$invalid && !compraForm.uMesTarjeta.$touched" class="help-block">Expiration month</p>
                         </div>
                     </div>
-
+                    <br /><br />
                     <div class="form-group text-center">
                         <input type="submit" class="btn btn-primary btn-lg" ng-click="comprar(compraForm.$valid)" ng-disabled="compraForm.$invalid" value="Submit" />
                     </div>
@@ -248,6 +255,28 @@
 
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" ng-click="cerrarCompraEntrenamiento()">Close</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
+<!--MODAL COMPRA OK-->
+<div id="modalCompraOK" class="modal fade" tabindex="-1" role="dialog" ng-controller="trackCtrl">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 style="color:#333">TRAINING PURCHASED OK!!</h2>
+            </div>
+
+            <div class="modal-body">
+                <p>The purchase was successful!!</p><br />
+                <p>Soon you will receive an email with the training that you have purchased.</p><br />
+                <p>Thank you!!</p>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" ng-click="cerrarCompraOK()">Close</button>
             </div>
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->

@@ -155,6 +155,7 @@
     <Content Include="fonts\fontawesome-webfont.woff" />
     <Content Include="fonts\fontawesome-webfont.ttf" />
     <Content Include="fonts\fontawesome-webfont.eot" />
+    <Content Include="Content\Pdfs\pdfEntrenamiento.pdf" />
     <None Include="Properties\PublishProfiles\Fitocracy.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\Controllers\changePassCtrl.js" />

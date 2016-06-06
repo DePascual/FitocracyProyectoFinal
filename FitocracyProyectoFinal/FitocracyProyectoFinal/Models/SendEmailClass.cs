@@ -93,5 +93,45 @@ namespace FitocracyProyectoFinal.Models
             nuevoCorreo.Dispose();
 
         }
+
+        public static void EmailEntrenamientoComprado(Entrenamientos entrenamiento, Usuario usuario)
+        {
+
+            MailMessage nuevoCorreo = new MailMessage();
+            nuevoCorreo.To.Add(new MailAddress(usuario.Email));
+            nuevoCorreo.From = new MailAddress("mail.pruebas.daw@gmail.com");
+            nuevoCorreo.Subject = "FITOCRACY: Your new training";
+            nuevoCorreo.IsBodyHtml = true;
+
+            string body = "Hey " + usuario.Username + "!!<br /> ";
+            body += "Your new training <span style='color:#1da6da'>" + entrenamiento.NombreEntrenamiento + "</span> has been deal correctly !! Enjoy it!!!<br /> ";
+            body += "Be happy and strong!!";
+            body += "<hr />";
+            body += "FITOCRACY Team!!";
+            nuevoCorreo.Body = body;
+            //nuevoCorreo.Attachments.Add(new Attachment(Server.MapPath("~/facturas/" + miCliente.email + "_" + today + ".pdf")));
+            nuevoCorreo.Attachments.Add(new Attachment(System.Web.HttpContext.Current.Server.MapPath("~/Content/Pdfs/pdfEntrenamiento.pdf")));
+
+            SmtpClient servidor = new SmtpClient();
+            servidor.Host = "smtp.gmail.com";
+            servidor.Port = 587;
+            servidor.EnableSsl = true;
+            servidor.DeliveryMethod = SmtpDeliveryMethod.Network;
+            servidor.Credentials = new NetworkCredential("mail.pruebas.daw@gmail.com", "avellanedadaw");
+            servidor.Timeout = 2000;
+
+            ServicePointManager.ServerCertificateValidationCallback = new System.Net.Security.RemoteCertificateValidationCallback(AcceptAllCertifications);
+            try
+            {
+                servidor.Send(nuevoCorreo);
+            }
+            catch (Exception ex)
+            {
+                string e = ex.ToString();
+            }
+
+            nuevoCorreo.Dispose();
+
+        }
     }
 }

@@ -195,6 +195,11 @@
             $('#modalCompraEntrenamiento').modal('hide');
         };
 
+        $scope.cerrarCompraOK = function () {
+            $('#modalCompraOK').modal('hide');
+            $.getJSON('/Coach/mandarEntrenamiento');
+        };
+
         $scope.loginDesdeCompra = function (isValid) {
             if (isValid) {
                 var usuario = {
@@ -217,21 +222,24 @@
         $scope.comprar = function (isValid) {
             if (isValid) {
                 var tarjetaUsuario = {
-                    _id: null,
                     CardNumber: $scope.uNumTarjeta,
                     SecurityCode: $scope.uNumSecurity,
-                    Month: $scope.uAnyoTarjeta,
-                    Year: $scope.uMesTarjeta
+                    Year: $scope.uAnyoTarjeta,
+                    Month: $scope.uMesTarjeta                  
                 };
-                //var entrenamientoRecuperado = recuperaEntrenamiento($('#idEntrenamiento').val())
 
-                var getData9 = trackService.Compra(tarjetaUsuario, $('#idEntrenamiento').val());
+
+               recuperaEntrenamiento($('#idEntrenamiento').val())
+
+                var getData9 = trackService.Compra(tarjetaUsuario);
                 getData9.then(function (msg) {
                     if (msg.data == "True") {
-                        alert('ok')
+                        $('#modalCompraEntrenamiento').modal('hide');
+                        $('#modalCompraOK').modal('show');
+                        //de aqui tendre que llamar a mandar el email cada x
                     }
                     else {
-                       alert('error')
+                        $('#errorCompra').css('display', 'block');
                     }
                 });
             }
