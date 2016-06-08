@@ -187,6 +187,7 @@
         };
 
         var entrenamientoRecuperado;
+
         $scope.compraEntrenamiento = function () {         
             $('#modalCompraEntrenamiento').modal('show');                  
         };

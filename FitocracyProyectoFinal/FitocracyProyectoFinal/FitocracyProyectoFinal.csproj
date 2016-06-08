@@ -237,6 +237,7 @@
     <Content Include="Views\Coach\Home.cshtml" />
     <Content Include="Views\Coach\detalleEntrenamiento.cshtml" />
     <Content Include="Views\ZonaEntrenadores\Home.cshtml" />
+    <Content Include="Views\ZonaEntrenadores\EditEntrenamiento.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

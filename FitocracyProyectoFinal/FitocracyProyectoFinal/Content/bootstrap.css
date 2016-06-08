@@ -6850,6 +6850,11 @@ td.visible-print {
   border-color: #1F2B32;
 }
 
+.btn-uploadCoach {
+  color: #ffffff;
+  background-color: #404040;
+  border-color: #e7e7e7;
+}
 
 .center-block {
   display: block;

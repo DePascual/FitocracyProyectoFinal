@@ -74,7 +74,11 @@ var configFunction = function ($routeProvider, $locationProvider) {
         .when('/ZonaEntrenadores', {
             templateUrl: 'ZonaEntrenadores/Home',
             controller: 'entrenadoresCtrl'
-        });
+        })
+     .when('/EditEntrenamiento', {
+         templateUrl: 'ZonaEntrenadores/EditEntrenamiento',
+         controller: 'entrenadoresCtrl'
+     });
 
 
 

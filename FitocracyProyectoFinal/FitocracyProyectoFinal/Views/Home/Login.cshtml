@@ -42,16 +42,20 @@
                     <div class="row">
                         <div class="col-lg-2"></div>
                         <div class="form-group col-lg-8">
-                            <div class="input-group">
-                                <input id="entrenador" name="entrenador" type="checkbox" class="form-control ng-neutro checkbox"  ng-model="entrenador" value="I am Coach"/>
-                            </div>                          
+
+                            <div class="checkbox">
+                                <label>
+                                    <input id="entrenador" name="entrenador" type="checkbox" ng-model="entrenador"> I am a Coach
+                                </label>
+                            </div>
+
                         </div>
                         <div class="col-lg-2"></div>
                     </div>
 
                     <div class="form-group text-center">
                         <input type="submit" class="btn btn-primary btn-lg" ng-click="logear(loginForm.$valid)" ng-disabled="loginForm.$invalid" value="Submit" />
-                        <br />                      
+                        <br />
                         <span><a ng-click="irAChangePass()" class="pointer">I forgot my password</a></span>
                     </div>
                 </form>
@@ -64,4 +68,3 @@
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
-

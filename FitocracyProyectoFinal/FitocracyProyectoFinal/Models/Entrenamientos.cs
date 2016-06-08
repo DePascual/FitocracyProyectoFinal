@@ -23,5 +23,6 @@ namespace FitocracyProyectoFinal.Models
         public string Goals { get; set; }
         public string Requirements { get; set; }
         public string WhatYouGet { get; set; }
+        public string LastModification { get; set; }
     }
 }

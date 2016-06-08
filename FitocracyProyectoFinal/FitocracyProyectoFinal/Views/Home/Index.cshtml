@@ -11,7 +11,7 @@
     @Styles.Render("~/Content/miCSS.css")
     @Styles.Render("~/Content/font-awesome.css")
     @*@Styles.Render("~/Content/ui-bootstrap-csp.css")
-    @Styles.Render("~/Content/ui-grid.css")*@
+        @Styles.Render("~/Content/ui-grid.css")*@
     @Styles.Render("~/Content/bootstrap-datepicker.css")
     @Styles.Render("~/Content/bootstrap-datepicker3.css")
     @*@Styles.Render("~/Content/ng-table.css")*@
@@ -25,7 +25,7 @@
             <div class="navbar-header">
                 <a class="navbar-brand" href="#/Home" menu>FITOCRACY</a>
             </div>
-            <ul class="nav navbar-nav navbar-right" ng-controller="userCtrl">
+            <ul class="nav navbar-nav navbar-right" ng-controller="userCtrl" id="menuUsu">
                 <li usu="false" style="display:block" id="linkHome"><a href="#/Home" menu class="active"><i class="fa fa-home"></i> Home</a></li>
                 <li usu="false" style="display:block"><a href="#/Coach" menu><i class="fa fa-play"></i> Hire a Coach</a></li>
                 <li usu="false" style="display:block"><a href="#/About" menu><i class="fa fa-hand-o-up"></i> About Us</a></li>
@@ -35,7 +35,13 @@
                 <li usu="true" style="display:none"><a href="#/Track" menu><i class="fa fa-heartbeat"></i> Track</a></li>
                 <li usu="true" style="display:none"><a href="#/Connect" menu><i class="fa fa-envelope"></i> Connect</a></li>
                 <li usu="true" style="display:none"><a href="#/Leaders" menu><i class="fa fa-trophy"></i> Leaders</a></li>
-                <li usu="true" style="display:none" class="dropdown" id="dropUsu" activo="false"></li>
+                <li usu="true" style="display:none" class="dropdown" id="dropUsu" activo="false"></li>             
+            </ul>
+
+            <ul class="nav navbar-nav navbar-right" ng-controller="entrenadoresCtrl" id="menuCoach" style="display:none; color:#fff">
+                <li coach="true" style="display:block; color:#fff"><a href="#/Entrenamientos" menu><i class="fa fa-heartbeat"></i>Trainings</a></li>
+                <li coach="true" style="display:block"><a href="#/Alerts" menu><i class="fa fa-bell-o"></i>Alerts</a></li>
+                <li coach="true" style="display:block" class="dropdown" id="dropCoach" activo="false"></li>
             </ul>
         </div>
     </nav>
@@ -51,12 +57,12 @@
     @Scripts.Render("~/Scripts/angular.js")
     @Scripts.Render("~/Scripts/angular-route.js")
     @*@Scripts.Render("~/Scripts/angular-resource.js")
-    @Scripts.Render("~/Scripts/angular-ui/ui-bootstrap.js")
-    @Scripts.Render("~/Scripts/angular-ui/ui-bootstrap-tpls.js")
-    @Scripts.Render("~/Scripts/angular-animate.js")
-    @Scripts.Render("~/Scripts/angular-touch.js")
-    @Scripts.Render("~/Scripts/ui-grid.js")
-    @Scripts.Render("~/Scripts/ng-table.js")*@
+        @Scripts.Render("~/Scripts/angular-ui/ui-bootstrap.js")
+        @Scripts.Render("~/Scripts/angular-ui/ui-bootstrap-tpls.js")
+        @Scripts.Render("~/Scripts/angular-animate.js")
+        @Scripts.Render("~/Scripts/angular-touch.js")
+        @Scripts.Render("~/Scripts/ui-grid.js")
+        @Scripts.Render("~/Scripts/ng-table.js")*@
     @Scripts.Render("~/Scripts/morris.js")
     @Scripts.Render("~/Scripts/raphael.js")
 
