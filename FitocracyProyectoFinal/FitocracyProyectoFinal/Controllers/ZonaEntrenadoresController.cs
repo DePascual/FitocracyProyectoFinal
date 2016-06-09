@@ -31,8 +31,6 @@ namespace FitocracyProyectoFinal.Controllers
             }
         }
 
-        Entrenamientos entrenamientoRecuperado = new Entrenamientos();
-
         public ActionResult Home()
         {
             var entrenamientos = _dbContext.Entrenamientos.Find<Entrenamientos>(x => x.Id_Entrenador == entrenador._id).ToList();
@@ -40,8 +38,14 @@ namespace FitocracyProyectoFinal.Controllers
             EntrenamientoEntrenadoresVM vM = new EntrenamientoEntrenadoresVM();
             vM.entrenador = entrenador;
             vM.entrenamientosList = entrenamientos;
-          
+
             return PartialView(vM);
+        }
+
+        public ActionResult Entrenamientos()
+        {
+            var entrenamientos = _dbContext.Entrenamientos.Find<Entrenamientos>(x => x.Id_Entrenador == entrenador._id).ToList();
+            return View(entrenamientos);
         }
 
         public ActionResult EditEntrenamiento()
@@ -58,10 +62,6 @@ namespace FitocracyProyectoFinal.Controllers
 
             var entrenamiento = _dbContext.Entrenamientos.Find<Entrenamientos>(x => x._id == idEntrenamiento).SingleOrDefault();
             TempData["entrenamiento"] = entrenamiento;
-            //return PartialView();
-
-            //entrenamientoRecuperado = entrenamiento;
-
             return Redirect("http://" + host + ":" + port + "/#/EditEntrenamiento");
         }
 
@@ -71,10 +71,6 @@ namespace FitocracyProyectoFinal.Controllers
         {
             Session["infoEntrenador"] = null;
         }
-
-
-
-
 
         public ActionResult uploadPhoto(HttpPostedFileBase file, string idUsu)
         {
@@ -107,6 +103,47 @@ namespace FitocracyProyectoFinal.Controllers
                 System.IO.File.Delete(path);
             }
             return Redirect("http://" + host + ":" + port + "/#/ZonaEntrenadores");
+        }
+
+
+        [HttpPost]
+        public bool UpdateEntrenamiento(Entrenamientos entrenamiento)
+        {
+            try
+            {
+                if (entrenamiento.NombreEntrenamiento != null)
+                {
+                    _dbContext.Entrenamientos.UpdateOne<Entrenamientos>(x => x._id == entrenamiento._id, Builders<Entrenamientos>.Update.Set(x => x.NombreEntrenamiento, entrenamiento.NombreEntrenamiento));
+                }
+                if (entrenamiento.Duracion != null)
+                {
+                    _dbContext.Entrenamientos.UpdateOne<Entrenamientos>(x => x._id == entrenamiento._id, Builders<Entrenamientos>.Update.Set(x => x.Duracion, entrenamiento.Duracion));
+                }
+                if (entrenamiento.Precio != null)
+                {
+                    _dbContext.Entrenamientos.UpdateOne<Entrenamientos>(x => x._id == entrenamiento._id, Builders<Entrenamientos>.Update.Set(x => x.Precio, entrenamiento.Precio));
+                }
+                if (entrenamiento.Familia != null)
+                {
+                    _dbContext.Entrenamientos.UpdateOne<Entrenamientos>(x => x._id == entrenamiento._id, Builders<Entrenamientos>.Update.Set(x => x.Familia, entrenamiento.Familia));
+                }
+                if (entrenamiento.Descripcion != null)
+                {
+                    _dbContext.Entrenamientos.UpdateOne<Entrenamientos>(x => x._id == entrenamiento._id, Builders<Entrenamientos>.Update.Set(x => x.Descripcion, entrenamiento.Descripcion));
+                }
+
+                string fecha = DateTime.Today.ToString("dd/MM/yyyy");
+                _dbContext.Entrenamientos.UpdateOne<Entrenamientos>(x => x._id == entrenamiento._id, Builders<Entrenamientos>.Update.Set(x => x.LastModification, fecha));
+
+                return true;
+            }
+            catch (Exception e)
+            {
+                string ex = e.ToString();
+                return false;
+            }
+
+
         }
     }
 }

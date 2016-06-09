@@ -160,6 +160,7 @@
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\Controllers\changePassCtrl.js" />
     <Content Include="Scripts\Controllers\entrenadoresCtrl.js" />
+    <Content Include="Scripts\Controllers\homeCtrl.js" />
     <Content Include="Scripts\Controllers\loginCtrl.js" />
     <Content Include="Scripts\Controllers\registroCtrl.js" />
     <Content Include="Scripts\Controllers\trackCtrl.js" />
@@ -171,6 +172,7 @@
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\morris.js" />
     <Content Include="Scripts\raphael.js" />
+    <Content Include="Scripts\Services\entrenadorService.js" />
     <Content Include="Scripts\Services\loginService.js" />
     <Content Include="Scripts\Services\registroService.js" />
     <Content Include="Scripts\Services\trackService.js" />

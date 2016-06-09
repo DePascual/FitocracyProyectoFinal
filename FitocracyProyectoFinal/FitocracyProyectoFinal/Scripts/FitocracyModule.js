@@ -4,12 +4,14 @@ var configFunction = function ($routeProvider, $locationProvider) {
     $routeProvider.
          when('/', {
              templateUrl: 'Home/Home',
+             controller: 'homeCtrl'
          })
         .when('/Index', {
             templateUrl: 'Home/Index',
         })
         .when('/Home', {
             templateUrl: 'Home/Home',
+            controller:'homeCtrl'
         })
         .when('/Coach', {
             templateUrl: 'Coach/Home',
@@ -79,10 +81,6 @@ var configFunction = function ($routeProvider, $locationProvider) {
          templateUrl: 'ZonaEntrenadores/EditEntrenamiento',
          controller: 'entrenadoresCtrl'
      });
-
-
-
-    //$locationProvider.html5Mode(true).hashPrefix('!');
 }
 configFunction.$inject = ['$routeProvider', '$locationProvider'];
 

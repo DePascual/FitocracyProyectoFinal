@@ -10,11 +10,8 @@
     @Styles.Render("~/Content/bootstrap.css")
     @Styles.Render("~/Content/miCSS.css")
     @Styles.Render("~/Content/font-awesome.css")
-    @*@Styles.Render("~/Content/ui-bootstrap-csp.css")
-        @Styles.Render("~/Content/ui-grid.css")*@
     @Styles.Render("~/Content/bootstrap-datepicker.css")
     @Styles.Render("~/Content/bootstrap-datepicker3.css")
-    @*@Styles.Render("~/Content/ng-table.css")*@
     @Styles.Render("~/Content/morris.css")
 
     <base href="/">
@@ -38,10 +35,9 @@
                 <li usu="true" style="display:none" class="dropdown" id="dropUsu" activo="false"></li>             
             </ul>
 
-            <ul class="nav navbar-nav navbar-right" ng-controller="entrenadoresCtrl" id="menuCoach" style="display:none; color:#fff">
-                <li coach="true" style="display:block; color:#fff"><a href="#/Entrenamientos" menu><i class="fa fa-heartbeat"></i>Trainings</a></li>
-                <li coach="true" style="display:block"><a href="#/Alerts" menu><i class="fa fa-bell-o"></i>Alerts</a></li>
-                <li coach="true" style="display:block" class="dropdown" id="dropCoach" activo="false"></li>
+            <ul class="nav navbar-nav navbar-right" ng-controller="entrenadoresCtrl" id="menuCoach" style="display:none; color:#fff">               
+                 <li coach="true" style="display:block"><a href="#/ZonaEntrenadores" menu><i class="fa fa-heartbeat"></i> Coach Site</a></li>
+                 <li coach="true" style="display:block" class="dropdown" id="dropCoach" activo="false"></li>
             </ul>
         </div>
     </nav>
@@ -56,13 +52,6 @@
 
     @Scripts.Render("~/Scripts/angular.js")
     @Scripts.Render("~/Scripts/angular-route.js")
-    @*@Scripts.Render("~/Scripts/angular-resource.js")
-        @Scripts.Render("~/Scripts/angular-ui/ui-bootstrap.js")
-        @Scripts.Render("~/Scripts/angular-ui/ui-bootstrap-tpls.js")
-        @Scripts.Render("~/Scripts/angular-animate.js")
-        @Scripts.Render("~/Scripts/angular-touch.js")
-        @Scripts.Render("~/Scripts/ui-grid.js")
-        @Scripts.Render("~/Scripts/ng-table.js")*@
     @Scripts.Render("~/Scripts/morris.js")
     @Scripts.Render("~/Scripts/raphael.js")
 
@@ -72,6 +61,7 @@
 
     @Scripts.Render("~/Scripts/FitocracyModule.js")
 
+    @Scripts.Render("~/Scripts/Controllers/homeCtrl.js")
     @Scripts.Render("~/Scripts/Controllers/loginCtrl.js")
     @Scripts.Render("~/Scripts/Controllers/registroCtrl.js")
     @Scripts.Render("~/Scripts/Controllers/userCtrl.js")
@@ -84,6 +74,7 @@
     @Scripts.Render("~/Scripts/Services/registroService.js")
     @Scripts.Render("~/Scripts/Services/trackService.js")
     @Scripts.Render("~/Scripts/Services/youService.js")
+    @Scripts.Render("~/Scripts/Services/entrenadorService.js")
 
     <script>
         $('a[menu]').click(function () {

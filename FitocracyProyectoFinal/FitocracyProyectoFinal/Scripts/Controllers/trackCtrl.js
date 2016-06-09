@@ -179,12 +179,17 @@
             var getData4 = trackService.guardaMyWork($scope.Workout);
             getData4.then(function (msg) {
                 if (msg.data != "False") {
+                    $('#modalMyWork').modal('show');
                     alert('Guardado')
                 } else {
                     alert('Error guardando')
                 }
             })
         };
+
+        $scope.cerrarMyWork = function () {
+            $('#modalMyWork').modal('hide');
+        }
 
         var entrenamientoRecuperado;
 
