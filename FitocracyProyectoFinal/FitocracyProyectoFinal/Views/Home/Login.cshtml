@@ -34,7 +34,7 @@
                                 <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
                                 <input id="uPass" name="uPass" type="password" class="form-control ng-neutro" placeholder="*********" ng-model="uPass" ng-required="true" ng-pattern="/^(?=.*\d)(?=.*[a-zA-Z])[a-zA-Z0-9]{7,}$/" />
                             </div>
-                            <p ng-show="loginForm.uPass.$invalid && !loginForm.uPass.$touched" class="help-block">Enter a valid password</p>
+                            <p ng-show="loginForm.uPass.$invalid && !loginForm.uPass.$touched" class="help-block">The password must have a minimum of 7 characters, a capital and a number</p>
                         </div>
                         <div class="col-lg-2"></div>
                     </div>

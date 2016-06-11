@@ -194,14 +194,12 @@
     <Compile Include="Models\Entrenadores.cs" />
     <Compile Include="Models\Entrenamientos.cs" />
     <Compile Include="Models\Evolution.cs" />
-    <Compile Include="Models\FotosClass.cs" />
     <Compile Include="Models\Levels.cs" />
     <Compile Include="Models\MongoDBcontext.cs" />
     <Compile Include="Models\SendEmailClass.cs" />
     <Compile Include="Models\TarjetasUsuario.cs" />
     <Compile Include="Models\Tracks.cs" />
     <Compile Include="Models\Usuario.cs" />
-    <Compile Include="Models\UsuSession.cs" />
     <Compile Include="Models\Workouts.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\EntrenamientoEntrenadoresVM.cs" />
@@ -249,7 +247,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Fotos\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -15,13 +15,7 @@ var configFunction = function ($routeProvider, $locationProvider) {
         })
         .when('/Coach', {
             templateUrl: 'Coach/Home',
-            //controller: 'entrenadoresCtrl'
         })
-         //.when('/Coach/detalleEntrenamiento', {
-         //    templateUrl: function (params) {
-         //        return 'Coach/detalleEntrenamiento?idEntrenador=' + params.idEntrenador + '&idEntrenamiento=' + params.idEntrenamiento;
-         //    }
-         //})
         .when('/detalleEntrenamiento', {
             templateUrl: 'Coach/detalleEntrenamiento',
         })

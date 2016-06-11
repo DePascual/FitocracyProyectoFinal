@@ -99,9 +99,6 @@
             })
         };
 
-
-
-
         $scope.workoutsFactory = function () {
             $('#vistaParcial').load("http://" + window.location.host + "/PartialsViews/workoutsFactory", function () {
                 $compile($('#vistaParcial'))($scope);
@@ -180,7 +177,6 @@
             getData4.then(function (msg) {
                 if (msg.data != "False") {
                     $('#modalMyWork').modal('show');
-                    alert('Guardado')
                 } else {
                     alert('Error guardando')
                 }
@@ -189,7 +185,20 @@
 
         $scope.cerrarMyWork = function () {
             $('#modalMyWork').modal('hide');
-        }
+        };
+
+        $scope.borrarMyWork = function (id) {
+            alert(id);
+            var getDataBorrar = trackService.borrarMyWork(id);
+            getDataBorrar.then(function (msg) {
+                if (msg.data != "False") {
+                   //alert('ok')
+                } else {
+                    alert('Error guardando')
+                }
+            })
+        };
+
 
         var entrenamientoRecuperado;
 

@@ -38,7 +38,7 @@
                                         [a-zA-Z0-9]{8,}         //should contain at least 8 from the mentioned characters
                                         $/)*@
                                 </div>
-                                <p ng-show="registroForm.uPass.$invalid && !registroForm.uPass.$pristine" class="help-block">Enter a valid password</p>
+                                <p ng-show="registroForm.uPass.$invalid && !registroForm.uPass.$pristine" class="help-block">The password must have a minimum of 7 characters, a capital and a number</p>
                             </div>
                         </div>
 
@@ -48,7 +48,7 @@
                             <div class="form-group col-lg-12">
                                 <div class="input-group" ng-class="{'has-error':registroForm.uName.$invalid && !registroForm.uName.$pristine}">
                                     <span class="input-group-addon">Username</span>
-                                    <input id="uName" name="uName" type="text" class="form-control ng-neutro" placeholder="CAROL" ng-model="uName" ng-required="true" ng-minlength="3" ng-maxlength="15" />
+                                    <input id="uName" name="uName" type="text" class="form-control ng-neutro" placeholder="userName" ng-model="uName" ng-required="true" ng-minlength="3" ng-maxlength="15" />
                                 </div>
                                 <p ng-show="registroForm.uName.$invalid && !registroForm.uName.$pristine" class="help-block">Enter a valid name</p>
                             </div>
@@ -65,7 +65,6 @@
 
                     <div class="form-group text-center">
                         <input type="submit" class="btn btn-primary btn-block" ng-click="registrar(registroForm.$valid)" ng-disabled="registroForm.$invalid" value="Create An Account" />
-                        @*<button  type="submit" class="btn btn-primary btn-block" ng-submit="registrar(registroForm.$valid)" ng-disabled="registroForm.$invalid">Create An Account</button>*@
                     </div>
 
                 </form>

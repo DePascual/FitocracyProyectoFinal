@@ -351,7 +351,12 @@ namespace FitocracyProyectoFinal.Controllers
         {
 
             string id = DateTime.Now.ToString().Replace("/", "").Replace(" ", "").Replace(":", "");
-            id += "0000000000";
+
+            for (int i = id.Length; i < 24; i++)
+            {
+                id += "0";
+            }
+
             workout._id = id;
 
             try
@@ -363,6 +368,25 @@ namespace FitocracyProyectoFinal.Controllers
                 var usuCollection2 = _dbContext.Usuarios.Find<Usuario>(x => x._id == usuario._id).FirstOrDefault();
                 return true;
 
+            }
+            catch (Exception e)
+            {
+                string exc = e.ToString();
+                return false;
+            }
+        }
+
+        [HttpPost]
+        public bool BorraMyWork(string idMyWork)
+        {
+            try
+            {
+
+                var usuCollection = _dbContext.Usuarios.Find<Usuario>(x => x._id == usuario._id).FirstOrDefault();
+                usuCollection.CustomWorkouts.Remove(idMyWork);
+                _dbContext.Usuarios.UpdateOne<Usuario>(x => x._id == usuario._id, Builders<Usuario>.Update.Set(x => x.CustomWorkouts, usuCollection.CustomWorkouts));
+
+                return true;
             }
             catch (Exception e)
             {

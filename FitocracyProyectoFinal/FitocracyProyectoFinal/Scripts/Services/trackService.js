@@ -65,6 +65,20 @@
             return response;
         };
 
+        this.borrarMyWork = function (idMyWork) {
+            var response = $http({
+                method: "post",
+                url: "/ZonaUsuarios/BorraMyWork",
+                data: { "idMyWork": idMyWork },
+                dataType: "json"
+            }).success(function (result) {
+                response = result;
+            }).error(function (data, status, headers, config) {
+                response = status;
+            });
+            return response;
+        };
+
         this.recuperaCustomWorkouts = function () {
             var response = $http({
                 method: "post",

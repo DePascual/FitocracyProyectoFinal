@@ -15,12 +15,12 @@
                 <div class="form-group col-lg-9">
                     <div class="input-group">
                         <span class="input-group-addon"><i class="fa fa-align-justify"></i> Name of workout: </span>
-                        <input id="Name" name="wName" type="text" class="form-control ng-neutro" placeholder="My workout" ng-model="wName" />
+                        <input id="Name" name="wName" type="text" class="form-control ng-neutro" placeholder="My workout" ng-model="wName" required/>
                     </div>
                 </div>
 
                 <div class="form-group col-lg-3 text-center">
-                    <input type="submit" class="btn btn-primary" ng-click="GuardaMyWork()" value="Save My Workout" />
+                    <input type="submit" class="btn btn-primary" ng-click="GuardaMyWork()"  ng-disabled="myWorkoutForm.$invalid"  value="Save My Workout" />
                     <br />
                 </div>
             </div>
@@ -54,13 +54,13 @@
         <hr />
         <br />
 
-        <div id="selector">
+        <form name="selector" id="selector">
             <!--SELECTOR-->
             <div class="row">
                 <!--TRACK-->
                 <div class="col-lg-4">
                     <p>Track: </p>
-                    <select id="selectTrack" ng-model="newWork.Work" name="Work" class="form-control ng-neutro">
+                    <select id="selectTrack" ng-model="newWork.Work" name="Work" class="form-control ng-neutro" required>
                         @foreach (var item in Model)
                         {
                             <option id="@item._id" link="@item.Link">@item.Nombre</option>
@@ -69,33 +69,33 @@
                 </div>
                 <!--SETS-->
                 <div class="form-group col-lg-3">
-                    <div class="input-group">
+                    <div class="input-group" ng-class="{'has-error':selector.Set.$invalid}">
                         <p>Sets</p>
-                        <input id="Sets" name="Set" type="text" class="form-control ng-neutro" placeholder="0" ng-model="newWork.Set" />
+                        <input id="Sets" name="Set" type="text" class="form-control ng-neutro" placeholder="0" ng-model="newWork.Set" ng-pattern="/^[0-9]*$/" required/>
                     </div>
                 </div>
                 <!--REPETITIONS-->
                 <div class="col-lg-3">
-                    <div class="input-group">
+                    <div class="input-group" ng-class="{'has-error':selector.Rep.$invalid}">
                         <p>Repetitions</p>
-                        <input id="Repetitions" name="Rep" type="text" class="form-control ng-neutro" placeholder="0" ng-model="newWork.Rep" />
+                        <input id="Repetitions" name="Rep" type="text" class="form-control ng-neutro" placeholder="0" ng-model="newWork.Rep" ng-pattern="/^[0-9]*$/" required/>
                     </div>
                 </div>
                 <!--PUSH-->
                 <div class="col-lg-2">
                     <div class="input-group center-block">
                         <p>Save</p>
-                        <button type="button" class="btn btn-primary" ng-click="Save()" style="vertical-align:bottom">Add</button>
+                        <button type="button" class="btn btn-primary" ng-click="Save()" ng-disabled="selector.$invalid" style="vertical-align:bottom">Add</button>
                     </div>
                 </div>
             </div>
-        </div>
+        </form>
 
     </div>
 </div>
 
 <!--MODAL-->
-<div id="modalMyWork" class="modal fade" tabindex="-1" role="dialog" ng-controller="entrenadoresCtrl">
+<div id="modalMyWork" class="modal fade" tabindex="-1" role="dialog" ng-controller="trackCtrl">
     <div class="modal-dialog" style="color:#333">
         <div class="modal-content">
             <div class="modal-header">
