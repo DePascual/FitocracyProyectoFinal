@@ -13,12 +13,13 @@ namespace FitocracyProyectoFinal.Controllers
 {
     public class PartialsViewsController : Controller
     {
+        #region Variables
         private MongoDBcontext _dbContext;
         private Usuario _usuario;
         public PartialsViewsController()
         {
             _dbContext = new MongoDBcontext();
-        }    
+        }
         public Usuario usuario
         {
             get
@@ -30,8 +31,9 @@ namespace FitocracyProyectoFinal.Controllers
                 this._usuario = value;
             }
         }
+        #endregion
 
-
+        #region Vistas
         public ActionResult ServicesPV()
         {
             return View();
@@ -68,7 +70,7 @@ namespace FitocracyProyectoFinal.Controllers
         }
 
         public ActionResult UserInfo()
-        {          
+        {
             var usuCollection = _dbContext.Usuarios.Find<Usuario>(x => x._id == usuario._id).SingleOrDefault();
             return View(usuCollection);
         }
@@ -92,11 +94,18 @@ namespace FitocracyProyectoFinal.Controllers
 
             return View(levels);
         }
+        #endregion
 
+        #region Métodos trasiego de datos
+        /// <summary>
+        /// Método invocado desde youCtrl
+        /// Recupera la información necesaria para pintar el gráfico evolutivo del usuario
+        /// </summary>
+        /// <returns>Una lista con la evolución del usuario</returns>
         [HttpGet]
         public string evolucionUsu()
         {
-            List<Evolution> datos = new List<Evolution>();        
+            List<Evolution> datos = new List<Evolution>();
             var usuCollection = _dbContext.Usuarios.Find<Usuario>(x => x._id == usuario._id).SingleOrDefault();
 
             string yearActual = DateTime.Today.Year.ToString();
@@ -117,5 +126,6 @@ namespace FitocracyProyectoFinal.Controllers
 
             return JsonConvert.SerializeObject(datos);
         }
+        #endregion
     }
 }

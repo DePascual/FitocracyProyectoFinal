@@ -12,6 +12,7 @@ namespace FitocracyProyectoFinal.Controllers
 {
     public class HomeController : Controller
     {
+        #region Variables
         private MongoDBcontext _dbContext;
         private Usuario _usuario;
 
@@ -31,14 +32,18 @@ namespace FitocracyProyectoFinal.Controllers
                 this._usuario = value;
             }
         }
+        #endregion
 
-        //View que trabaja a modo de Layout de la sección
+        #region Vistas
+        /// <summary>
+        /// View que trabaja a modo de Layout de la aplicación
+        /// </summary>
+        /// <returns></returns>
         public ActionResult Index()
         {
             return View(usuario);
         }
 
-        #region Partials Views => Carga con Angular
         //PartialsViews
         public ActionResult Home()
         {
@@ -64,14 +69,17 @@ namespace FitocracyProyectoFinal.Controllers
         #endregion
 
 
-        #region Metodos POST 
-        //Metodos
+        #region Metodos trasiego de datos       
+        /// <summary>
+        /// Método invocado desde loginService.js
+        /// Conecta con la Base de datos y comprueba el usuario que quiere logearse
+        /// </summary>
+        /// <param name="usuario"></param>
+        /// <returns>El usuario recuperado</returns>
         public string loginRecupUsuario(Usuario usuario)
         {
             EncriptacionClass encriptar = new EncriptacionClass();
             string passEncriptada = encriptar.Encrit(usuario.Password);
-
-            //Usuario usu = new Usuario();
             try
             {
                 var usu = _dbContext.Usuarios.Find<Usuario>(x => x.Username == usuario.Username && x.Password == passEncriptada).SingleOrDefault();
@@ -84,12 +92,17 @@ namespace FitocracyProyectoFinal.Controllers
             }
         }
 
+
+        /// <summary>
+        /// Método invocado desde loginService.js
+        /// Conecta con la Base de datos y comprueba el entrenador que quiere logearse
+        /// </summary>
+        /// <param name="entrenador"></param>
+        /// <returns>El entrenador logueado</returns>
         public string loginRecupEntrenador(Entrenadores entrenador)
         {
             EncriptacionClass encriptar = new EncriptacionClass();
             string passEncriptada = encriptar.Encrit(entrenador.CoachPass);
-
-            //Usuario usu = new Usuario();
             try
             {
                 var entrenadorColl = _dbContext.Entrenadores.Find<Entrenadores>(x => x.CoachName == entrenador.CoachName && x.CoachPass == passEncriptada).SingleOrDefault();
@@ -102,7 +115,12 @@ namespace FitocracyProyectoFinal.Controllers
             }
         }
 
-
+        /// <summary>
+        /// Método invocado desde registroService.js
+        /// Crea el objeto usuario necesario para introducirlo en la Base de Datos
+        /// </summary>
+        /// <param name="usuario"></param>
+        /// <returns>El usuario registrado</returns>
         [HttpPost]
         public string Registro(Usuario usuario)
         {
@@ -132,17 +150,12 @@ namespace FitocracyProyectoFinal.Controllers
 
             try
             {
-                //var collection = _dbContext.GetDatabase().GetCollection<Usuario>("usuarios");
-                //var existe = collection.AsQueryable().Where(x => x.Email == usuario.Email).Any();
-
                 var existe = _dbContext.Usuarios.Find<Usuario>(x => x.Email == usuario.Email).Any();
 
                 if (!existe)
                 {
                     _dbContext.Usuarios.InsertOne(usuario);
-                    //collection.Insert(usuario);
                     Session["infoUsuario"] = usuario;
-
                     return JsonConvert.SerializeObject(usuario);
                 }
                 else
@@ -160,14 +173,16 @@ namespace FitocracyProyectoFinal.Controllers
             }
         }
 
+        /// <summary>
+        /// Método invocado desde loginService.js
+        /// Manda por email la nueva contraseña al usuario
+        /// </summary>
+        /// <param name="Email"></param>
+        /// <returns>True (si el email ha sido enviado con éxito), o False (en caso contrario)</returns>
         [HttpPost]
         public bool ForgotPassword(string Email)
         {
-            //var collection = _dbContext.GetDatabase().GetCollection<Usuario>("usuarios");
-            //var usu = collection.AsQueryable().Where(x => x.Email == Email).Select(x => x).FirstOrDefault();
-
             var usu = _dbContext.Usuarios.Find<Usuario>(x => x.Email == Email).SingleOrDefault();
-
             try
             {
                 string newPass = generaNuevaPassword();
@@ -180,14 +195,42 @@ namespace FitocracyProyectoFinal.Controllers
                 string ex = e.ToString();
                 return false;
             }
+        }
 
+        /// <summary>
+        /// Método invocado desde youService.js
+        /// Cambia la contraseña del usuario
+        /// </summary>
+        /// <param name="passNew"></param>
+        /// <param name="usuario"></param>
+        /// <returns>True (si la contraseña ha sido cambiada con éxito), o False (en caso contrario)</returns>
+        [HttpPost]
+        public bool UpdatePassword(string passNew, Usuario usuario)
+        {
+            EncriptacionClass encriptar = new EncriptacionClass();
+            string passEncriptadaNew = encriptar.Encrit(passNew);
 
-
+            try
+            {
+                var usuCollection = _dbContext.Usuarios.Find<Usuario>(x => x._id == usuario._id).SingleOrDefault();
+                usuCollection.Password = passEncriptadaNew;
+                _dbContext.Usuarios.UpdateOne<Usuario>(x => x._id == usuario._id, Builders<Usuario>.Update.Set(x => x.Password, passEncriptadaNew));
+                return true;
+            }
+            catch (Exception e)
+            {
+                string exc = e.ToString();
+                return false;
+            }
         }
         #endregion
 
         #region Metodos auxiliares
-        //Metodos Auxiliares
+        /// <summary>
+        /// Transforma un fichero en un array de bytes
+        /// </summary>
+        /// <param name="info"></param>
+        /// <returns>Un array de bytes</returns>
         private byte[] ImgToDb(FileInfo info)
         {
             byte[] content = new byte[info.Length];
@@ -197,7 +240,10 @@ namespace FitocracyProyectoFinal.Controllers
             return content;
         }
 
-
+        /// <summary>
+        /// Genera una nueva contraseña con caracteres aleatorios
+        /// </summary>
+        /// <returns>La nueva contraseña</returns>
         public string generaNuevaPassword()
         {
             string newPass = "";
@@ -211,33 +257,6 @@ namespace FitocracyProyectoFinal.Controllers
                 newPass += caracteres[r.Next(n)];
             }
             return newPass;
-        }
-
-
-        public bool UpdatePassword(string passNew, Usuario usuario)
-        {
-            EncriptacionClass encriptar = new EncriptacionClass();
-            string passEncriptadaNew = encriptar.Encrit(passNew);
-
-            try
-            {
-                var usuCollection = _dbContext.Usuarios.Find<Usuario>(x => x._id == usuario._id).SingleOrDefault();
-
-
-                //var collection = _dbContext.GetDatabase().GetCollection<Usuario>("usuarios");
-                //var usuCollection = collection.AsQueryable().Where(x => x._id == usuario._id).FirstOrDefault();
-                usuCollection.Password = passEncriptadaNew;
-                _dbContext.Usuarios.UpdateOne<Usuario>(x => x._id == usuario._id, Builders<Usuario>.Update.Set(x => x.Password, passEncriptadaNew));
-
-                //collection.Save(usuCollection);
-                return true;
-
-            }
-            catch (Exception e)
-            {
-                string exc = e.ToString();
-                return false;
-            }
         }
         #endregion
     }

@@ -10,12 +10,15 @@ namespace FitocracyProyectoFinal.Controllers
 {
     public class FotosController : Controller
     {
+        #region Variables
         private MongoDBcontext _dbContext;
         public FotosController()
         {
             _dbContext = new MongoDBcontext();
         }
+        #endregion
 
+        #region Métodos 
         public ActionResult downloadPhoto(string id)
         {
             var usu = _dbContext.Usuarios.Find<Usuario>(x => x._id == id).SingleOrDefault();
@@ -33,5 +36,6 @@ namespace FitocracyProyectoFinal.Controllers
             var usu = _dbContext.Entrenadores.Find<Entrenadores>(x => x._id == id).SingleOrDefault();
             return File(usu.Foto, "image/jpg");
         }
+        #endregion
     }
 }

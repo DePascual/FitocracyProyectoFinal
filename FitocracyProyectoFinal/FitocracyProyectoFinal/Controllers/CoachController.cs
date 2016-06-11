@@ -15,6 +15,10 @@ namespace FitocracyProyectoFinal.Controllers
 {
     public class CoachController : Controller
     {
+        #region Variables
+        /// <summary>
+        /// Declaración de variables
+        /// </summary>
         private MongoDBcontext _dbContext;
         private Usuario _usuario;
         public CoachController()
@@ -32,7 +36,13 @@ namespace FitocracyProyectoFinal.Controllers
                 this._usuario = value;
             }
         }
+        #endregion
 
+        #region Vistas
+        /// <summary>
+        /// Carga de View Model con los datos necesarios para la vista
+        /// </summary>
+        /// <returns>Vista Home.cshtml de la zona Coach</returns>
         public ActionResult Home()
         {
             List<Entrenamientos> entrenamientosList = _dbContext.Entrenamientos.Find<Entrenamientos>(new BsonDocument()).ToList();
@@ -43,7 +53,13 @@ namespace FitocracyProyectoFinal.Controllers
             return View(vM);
         }
 
-
+        /// <summary>
+        /// Método invocado desde EntrenamientoSmall.cshtml
+        /// Muestra una descripción más detallada del entrenamiento seleccionado
+        /// </summary>
+        /// <param name="idEntrenador"></param>
+        /// <param name="idEntrenamiento"></param>
+        /// <returns>Redirección a detalleEntrenamiento.cshtml</returns>
         public ActionResult irAdetalleEntrenamiento(string idEntrenador, string idEntrenamiento)
         {
             var host = Request.Url.Host;
@@ -57,11 +73,23 @@ namespace FitocracyProyectoFinal.Controllers
             return Redirect("http://" + host + ":" + port + "/#/detalleEntrenamiento");
         }
 
+        /// <summary>
+        /// Método que utiliza AngularJs para enrutar y pintar detalleEntrenamiento.cshtml
+        /// </summary>
+        /// <returns></returns>
         public ActionResult detalleEntrenamiento()
         {
             return View();
         }
+        #endregion
 
+        #region Métodos trasiego de datos
+        /// <summary>
+        /// Método invocado desde trackService.js, petición Ajax
+        /// Recupera el entrenamiento indicado
+        /// </summary>
+        /// <param name="idEntrenamiento"></param>
+        /// <returns>Devuelve un entrenamiento</returns>
         [HttpPost]
         public string recuperaEntrenamiento(string idEntrenamiento)
         {
@@ -70,6 +98,13 @@ namespace FitocracyProyectoFinal.Controllers
             return JsonConvert.SerializeObject(entrenamiento);
         }
 
+
+        /// <summary>
+        /// Método invocado desde trackService.js, petición Ajax
+        /// Realiza el volcado de datos cuando se realiza una compra
+        /// </summary>
+        /// <param name="datosTarjeta"></param>
+        /// <returns>True (si el volcado ha sido satisfactorio), o False (en caso contrario)</returns>
         [HttpPost]
         public bool compraEntrenamiento(TarjetasUsuario datosTarjeta)
         {
@@ -113,6 +148,10 @@ namespace FitocracyProyectoFinal.Controllers
             }
         }
 
+        /// <summary>
+        /// Método invocado desde trackCtrl.js
+        /// Envía un email con el entrenamiento comprado
+        /// </summary>
         [HttpGet]
         public void mandarEntrenamiento()
         {
@@ -128,5 +167,6 @@ namespace FitocracyProyectoFinal.Controllers
                 string ex = e.ToString();
             }
         }
+        #endregion
     }
 }

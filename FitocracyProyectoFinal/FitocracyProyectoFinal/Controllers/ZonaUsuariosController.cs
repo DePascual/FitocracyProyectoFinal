@@ -14,6 +14,7 @@ namespace FitocracyProyectoFinal.Controllers
 {
     public class ZonaUsuariosController : Controller
     {
+        #region Variables
         private MongoDBcontext _dbContext;
         private Usuario _usuario;
         public ZonaUsuariosController()
@@ -32,7 +33,9 @@ namespace FitocracyProyectoFinal.Controllers
                 this._usuario = value;
             }
         }
+        #endregion
 
+        #region Vistas
         public ActionResult Home()
         {
             return PartialView(usuario);
@@ -65,15 +68,28 @@ namespace FitocracyProyectoFinal.Controllers
             var usu = _dbContext.Usuarios.Find<Usuario>(x => x._id == usuario._id).SingleOrDefault();
             return View(usu);
         }
+        #endregion
 
+        #region Métodos de trasiego de datos
 
+        /// <summary>
+        /// Método invocado desde userCtrl.js
+        /// Borra de la sesión al ususario
+        /// </summary>
+        /// <param name="idUsuario"></param>
         public void SignOut(string idUsuario)
         {
             Session["infoUsuario"] = null;
         }
 
 
-
+        /// <summary>
+        /// Método invocado desde WorkoutCarruselPV.cshtml
+        /// Guarda en la Base de datos el entrenamiento que el usuario acaba de realizar
+        /// Suma los puntos obtenidos y comprueba que el nivel es el correcto
+        /// </summary>
+        /// <param name="_idWorkout"></param>
+        /// <returns>Redirige a WorkoutAlert.cshtml</returns>
         [HttpPost]
         public ActionResult workoutDone(string _idWorkout)
         {
@@ -142,42 +158,12 @@ namespace FitocracyProyectoFinal.Controllers
             return Redirect("http://" + host + ":" + port + "/#/WorkoutDoneAlert");
         }
 
-        public int compruebaNivelActual(int points)
-        {
-            int levelAct = 0;
-            var levelList = _dbContext.Levels.Find<Levels>(new BsonDocument()).ToList();
-
-            for (int i = 0; i < levelList.Count(); i++)
-            {
-                if (points > levelList[i].Points && points < levelList[i + 1].Points)
-                {
-                    levelAct = levelList[i].Level;
-                }
-
-                if (points == levelList[i].Points)
-                {
-                    levelAct = levelList[i].Level;
-                }
-            }
-
-            return levelAct;
-        }
-
-        public int pointsToNextLevel(Usuario usu)
-        {
-            int puntos = 0;
-
-            var levelList = _dbContext.Levels.Find<Levels>(new BsonDocument()).ToList();
-            for (int i = 0; i < levelList.Count(); i++)
-            {
-                if (levelList[i].Level == usu.Level)
-                {
-                    puntos = levelList[i + 1].Points - usu.Points;
-                }
-            }
-            return puntos;
-        }
-
+        
+        /// <summary>
+        /// Método invocado desde trackService.js
+        /// Recupera todos los Workouts
+        /// </summary>
+        /// <returns>Lista de Workouts</returns>
         [HttpPost]
         public string recuperaWorkouts()
         {
@@ -188,11 +174,15 @@ namespace FitocracyProyectoFinal.Controllers
             }
             catch (Exception)
             {
-
                 return null;
             }
         }
 
+        /// <summary>
+        /// Método invocado desde trackService.js
+        /// Recupera todos los Workouts del usuario
+        /// </summary>
+        /// <returns>Lista de Workouts</returns>
         [HttpPost]
         public string recuperaWorkoutsUsu()
         {
@@ -207,6 +197,11 @@ namespace FitocracyProyectoFinal.Controllers
             }
         }
 
+        /// <summary>
+        /// Método invocado desde trackService.js
+        /// Recupera todos los tracks 
+        /// </summary>
+        /// <returns>Lista de Tracks</returns>
         [HttpPost]
         public string recuperaAllTracks()
         {
@@ -221,10 +216,14 @@ namespace FitocracyProyectoFinal.Controllers
             }
         }
 
+        /// <summary>
+        /// Método invocado desde trackService.js
+        /// Recupera todos los Workouts diseñados por el usuario
+        /// </summary>
+        /// <returns>Lista de Workouts</returns>
         [HttpPost]
         public string recuperaCustomWorkouts()
         {
-            Usuario usuario = (Usuario)Session["infoUsuario"];
             try
             {
                 var usuCollection = _dbContext.Usuarios.Find<Usuario>(x => x._id == usuario._id).FirstOrDefault();
@@ -236,6 +235,12 @@ namespace FitocracyProyectoFinal.Controllers
             }
         }
 
+        /// <summary>
+        /// Método invocado desde trackService.js
+        /// Busca el track 
+        /// </summary>
+        /// <param name="textoBusqueda"></param>
+        /// <returns>Listado de tracks coincidentes con la búsqueda</returns>
         [HttpPost]
         public string buscadorTracks(string textoBusqueda)
         {
@@ -251,7 +256,12 @@ namespace FitocracyProyectoFinal.Controllers
             }
         }
 
-
+        /// <summary>
+        /// Transforma la foto del usuario en un array de bytes y la guarda en la base de datos
+        /// </summary>
+        /// <param name="file"></param>
+        /// <param name="idUsu"></param>
+        /// <returns>Redirige a You.cshtml</returns>
         [HttpPost]
         public ActionResult uploadPhoto(HttpPostedFileBase file, string idUsu)
         {
@@ -286,6 +296,12 @@ namespace FitocracyProyectoFinal.Controllers
             return Redirect("http://" + host + ":" + port + "/#/You");
         }
 
+        /// <summary>
+        /// Método invocado desde youService.js
+        /// GUarda los cambios que el usuario ha decidido cambiar
+        /// </summary>
+        /// <param name="user"></param>
+        /// <returns>El nuevo usuario</returns>
         [HttpPost]
         public string UpdateUser(Usuario user)
         {
@@ -319,14 +335,14 @@ namespace FitocracyProyectoFinal.Controllers
             }
         }
 
-        private int calculaEdad(string birthday)
-        {
-            var fecha = birthday.Split(new char[] { ' ' })[0].Replace("{", "").Replace("}", "");
-            DateTime nac = DateTime.ParseExact(birthday, "dd/MM/yyyy", new CultureInfo("es-ES"));
-            int edad = DateTime.Today.AddTicks(-nac.Ticks).Year - 1;
-            return edad;
-        }
 
+        /// <summary>
+        /// Método invocado desde youService.js
+        /// Cambia la contraseña del usuario
+        /// </summary>
+        /// <param name="passOld"></param>
+        /// <param name="passNew"></param>
+        /// <returns>True (si la contraseña ha sido cambiada con éxito), o False (en caso contrario)</returns>
         [HttpPost]
         public bool UpdatePassword(string passOld, string passNew)
         {
@@ -346,6 +362,12 @@ namespace FitocracyProyectoFinal.Controllers
             }
         }
 
+        /// <summary>
+        /// Método invocado desde trackService.js
+        /// Guarda el entrenamiento diseñado por el usuario
+        /// </summary>
+        /// <param name="workout"></param>
+        /// <returns>True (si el entrenamiento ha sido cambiado con éxito), o False (en caso contrario)</returns>
         [HttpPost]
         public bool GuardaMyWork(Workouts workout)
         {
@@ -361,7 +383,6 @@ namespace FitocracyProyectoFinal.Controllers
 
             try
             {
-
                 var usuCollection = _dbContext.Usuarios.Find<Usuario>(x => x._id == usuario._id).FirstOrDefault();
                 usuCollection.CustomWorkouts.Add(DateTime.Now.ToString(), workout);
                 _dbContext.Usuarios.UpdateOne<Usuario>(x => x._id == usuario._id, Builders<Usuario>.Update.Set(x => x.CustomWorkouts, usuCollection.CustomWorkouts));
@@ -376,12 +397,17 @@ namespace FitocracyProyectoFinal.Controllers
             }
         }
 
+        /// <summary>
+        /// Método invocado desde trackService.js
+        /// Borra un entrenamiento diseñado por el usuario
+        /// </summary>
+        /// <param name="idMyWork"></param>
+        /// <returns>True (si el entrenamiento ha sido eliminado con éxito), o False (en caso contrario)</returns>
         [HttpPost]
         public bool BorraMyWork(string idMyWork)
         {
             try
             {
-
                 var usuCollection = _dbContext.Usuarios.Find<Usuario>(x => x._id == usuario._id).FirstOrDefault();
                 usuCollection.CustomWorkouts.Remove(idMyWork);
                 _dbContext.Usuarios.UpdateOne<Usuario>(x => x._id == usuario._id, Builders<Usuario>.Update.Set(x => x.CustomWorkouts, usuCollection.CustomWorkouts));
@@ -395,7 +421,12 @@ namespace FitocracyProyectoFinal.Controllers
             }
         }
 
-
+        /// <summary>
+        /// Método invocado desde youService.js
+        /// Manda un mensaje de contacto a Fitocracy
+        /// </summary>
+        /// <param name="areaMessage"></param>
+        /// <returns>True (si el mensaje ha sido enviado con éxito), o False (en caso contrario)</returns>
         [HttpPost]
         public bool Message(string areaMessage)
         {
@@ -409,6 +440,68 @@ namespace FitocracyProyectoFinal.Controllers
                 return false;
             }                  
         }
+        #endregion
+
+        #region Métodos auxiliares
+        /// <summary>
+        /// Calcula la edad del usuario mediante la fecha de cumpleaños
+        /// </summary>
+        /// <param name="birthday"></param>
+        /// <returns>La edad del usuario</returns>
+        private int calculaEdad(string birthday)
+        {
+            var fecha = birthday.Split(new char[] { ' ' })[0].Replace("{", "").Replace("}", "");
+            DateTime nac = DateTime.ParseExact(birthday, "dd/MM/yyyy", new CultureInfo("es-ES"));
+            int edad = DateTime.Today.AddTicks(-nac.Ticks).Year - 1;
+            return edad;
+        }
+
+        /// <summary>
+        /// Comprueba que los puntos del usuario son de un determinado nivel
+        /// </summary>
+        /// <param name="points"></param>
+        /// <returns>El nivel actual</returns>
+        public int compruebaNivelActual(int points)
+        {
+            int levelAct = 0;
+            var levelList = _dbContext.Levels.Find<Levels>(new BsonDocument()).ToList();
+
+            for (int i = 0; i < levelList.Count(); i++)
+            {
+                if (points > levelList[i].Points && points < levelList[i + 1].Points)
+                {
+                    levelAct = levelList[i].Level;
+                }
+
+                if (points == levelList[i].Points)
+                {
+                    levelAct = levelList[i].Level;
+                }
+            }
+
+            return levelAct;
+        }
+        
+        /// <summary>
+        /// Calcula los puntos necesarios para que el usuario adquiera el nuevo nivel
+        /// </summary>
+        /// <param name="usu"></param>
+        /// <returns>Cantidad de puntos</returns>
+        public int pointsToNextLevel(Usuario usu)
+        {
+            int puntos = 0;
+
+            var levelList = _dbContext.Levels.Find<Levels>(new BsonDocument()).ToList();
+            for (int i = 0; i < levelList.Count(); i++)
+            {
+                if (levelList[i].Level == usu.Level)
+                {
+                    puntos = levelList[i + 1].Points - usu.Points;
+                }
+            }
+            return puntos;
+        }
+        #endregion
 
     }
 }

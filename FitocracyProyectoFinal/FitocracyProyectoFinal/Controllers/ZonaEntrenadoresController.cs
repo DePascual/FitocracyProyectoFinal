@@ -12,6 +12,7 @@ namespace FitocracyProyectoFinal.Controllers
 {
     public class ZonaEntrenadoresController : Controller
     {
+        #region Variables
         private MongoDBcontext _dbContext;
         private Entrenadores _entrenador;
         public ZonaEntrenadoresController()
@@ -30,7 +31,9 @@ namespace FitocracyProyectoFinal.Controllers
                 this._entrenador = value;
             }
         }
+        #endregion
 
+        #region Vistas
         public ActionResult Home()
         {
             var entrenamientos = _dbContext.Entrenamientos.Find<Entrenamientos>(x => x.Id_Entrenador == entrenador._id).ToList();
@@ -52,9 +55,16 @@ namespace FitocracyProyectoFinal.Controllers
         {
             return View();
         }
+        #endregion
 
 
-
+        #region Trasiego de datos
+        /// <summary>
+        /// Método invocado desde Home.cshtml (Zona entrenadores)
+        /// Recupera los datos del entrenamiento seleccionado
+        /// </summary>
+        /// <param name="idEntrenamiento"></param>
+        /// <returns>Redirecciona a EditEntrenamiento</returns>
         public ActionResult BuscaEntrenamiento(string idEntrenamiento)
         {
             var host = Request.Url.Host;
@@ -65,47 +75,23 @@ namespace FitocracyProyectoFinal.Controllers
             return Redirect("http://" + host + ":" + port + "/#/EditEntrenamiento");
         }
 
-
-
+        /// <summary>
+        /// Método invocado desde entrenadoresCtrl.js
+        /// Borra de la sesión al entrenador
+        /// </summary>
+        /// <param name="idEntrenador"></param>
         public void SignOut(string idEntrenador)
         {
             Session["infoEntrenador"] = null;
         }
 
-        public ActionResult uploadPhoto(HttpPostedFileBase file, string idUsu)
-        {
-            var host = Request.Url.Host;
-            var port = Request.Url.Port;
 
-            var url = Url.RequestContext.RouteData.Values["id"];
-            if (file != null)
-            {
-                string pic = Path.GetFileName(file.FileName);
-                string path = Path.Combine(Server.MapPath("~/Content/Imagenes/Profiles"), pic);
-                file.SaveAs(path);
-
-                using (MemoryStream ms = new MemoryStream())
-                {
-                    file.InputStream.CopyTo(ms);
-                    byte[] array = ms.GetBuffer();
-
-                    try
-                    {
-                        _dbContext.Entrenadores.UpdateOne<Entrenadores>(x => x._id == entrenador._id, Builders<Entrenadores>.Update.Set(x => x.Foto, array));
-                    }
-                    catch (Exception e)
-                    {
-                        string exc = e.ToString();
-                    }
-
-                }
-
-                System.IO.File.Delete(path);
-            }
-            return Redirect("http://" + host + ":" + port + "/#/ZonaEntrenadores");
-        }
-
-
+        /// <summary>
+        /// Método invocado desde entrenadorService.js
+        /// Cambia el entrenamiento seleccionado
+        /// </summary>
+        /// <param name="entrenamiento"></param>
+        /// <returns>True (si el entrenamiento ha sido cambiada con éxito), o False (en caso contrario)</returns>
         [HttpPost]
         public bool UpdateEntrenamiento(Entrenamientos entrenamiento)
         {
@@ -145,5 +131,47 @@ namespace FitocracyProyectoFinal.Controllers
 
 
         }
+        #endregion
+
+
+        #region Métodos auxiliares
+        /// <summary>
+        /// Transforma la foto del entrenador en un array de bytes y la guarda en la base de datos
+        /// </summary>
+        /// <param name="file"></param>
+        /// <param name="idUsu"></param>
+        /// <returns>Redirecciona a la zona de entrenadores</returns>
+        public ActionResult uploadPhoto(HttpPostedFileBase file, string idUsu)
+        {
+            var host = Request.Url.Host;
+            var port = Request.Url.Port;
+
+            var url = Url.RequestContext.RouteData.Values["id"];
+            if (file != null)
+            {
+                string pic = Path.GetFileName(file.FileName);
+                string path = Path.Combine(Server.MapPath("~/Content/Imagenes/Profiles"), pic);
+                file.SaveAs(path);
+
+                using (MemoryStream ms = new MemoryStream())
+                {
+                    file.InputStream.CopyTo(ms);
+                    byte[] array = ms.GetBuffer();
+
+                    try
+                    {
+                        _dbContext.Entrenadores.UpdateOne<Entrenadores>(x => x._id == entrenador._id, Builders<Entrenadores>.Update.Set(x => x.Foto, array));
+                    }
+                    catch (Exception e)
+                    {
+                        string exc = e.ToString();
+                    }
+                }
+
+                System.IO.File.Delete(path);
+            }
+            return Redirect("http://" + host + ":" + port + "/#/ZonaEntrenadores");
+        }
+        #endregion
     }
 }
