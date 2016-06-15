@@ -188,7 +188,7 @@
         };
 
         $scope.borrarMyWork = function (id) {
-            alert(id);
+            //alert(id);
             var getDataBorrar = trackService.borrarMyWork(id);
             getDataBorrar.then(function (msg) {
                 if (msg.data != "False") {

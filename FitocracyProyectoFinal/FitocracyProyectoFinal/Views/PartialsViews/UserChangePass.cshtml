@@ -3,39 +3,39 @@
         <div id="changePassword">
 
             <div class="row">
-                <div class="col-lg-2"></div>
-                <div class="form-group col-lg-8">
+                <div class="col-lg-2 col-md-2"></div>
+                <div class="form-group col-lg-8 col-md-8">
                     <div class="input-group" ng-class="{'has-error':changePassForm.uPassOld.$invalid && !changePassForm.uPassOld.$pristine}">
                         <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i> Actual Password: </span>
                         <input id="uPassOld" name="uPassOld" type="password" class="form-control ng-neutro" placeholder="*********" ng-model="uPassOld" ng-pattern="/^(?=.*\d)(?=.*[a-zA-Z])[a-zA-Z0-9]{7,}$/" required />
                     </div>
                     <p ng-show="changePassForm.uPassOld.$invalid && !changePassForm.uPassOld.$pristine" class="help-block">The password must have a minimum of 7 characters, a capital and a number</p>
                 </div>
-                <div class="col-lg-2"></div>
+                <div class="col-lg-2 col-md-2"></div>
             </div>
 
             <div class="row">
-                <div class="col-lg-2"></div>
-                <div class="form-group col-lg-8">
+                <div class="col-lg-2 col-md-2"></div>
+                <div class="form-group col-lg-8 col-md-8">
                     <div class="input-group" ng-class="{'has-error':changePassForm.uPassNew.$invalid && !changePassForm.uPassNew.$pristine}">
                         <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i> New Password: </span>
                         <input id="uPassNew" name="uPassNew" type="password" class="form-control ng-neutro" placeholder="*********" ng-model="uPassNew" ng-pattern="/^(?=.*\d)(?=.*[a-zA-Z])[a-zA-Z0-9]{7,}$/" required />
                     </div>
                     <p ng-show="changePassForm.uPassNew.$invalid && !changePassForm.uPassNew.$pristine" class="help-block">The password must have a minimum of 7 characters, a capital and a number</p>
                 </div>
-                <div class="col-lg-2"></div>
+                <div class="col-lg-2 col-md-2"></div>
             </div>
 
             <div class="row">
-                <div class="col-lg-2"></div>
-                <div class="form-group col-lg-8">
+                <div class="col-lg-2 col-md-2"></div>
+                <div class="form-group col-lg-8 col-md-8">
                     <div class="input-group" ng-class="{'has-error':changePassForm.uPassNewRep.$invalid && !changePassForm.uPassNewRep.$pristine}">
                         <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i> Rewrite new Password: </span>
                         <input id="uPassNewRep" name="uPassNewRep" type="password" class="form-control ng-neutro" placeholder="*********" ng-model="uPassNewRep" ng-pattern="/^(?=.*\d)(?=.*[a-zA-Z])[a-zA-Z0-9]{7,}$/" compare-to="uPassNew" required />
                     </div>
                     <p ng-show="changePassForm.uPassNewRep.$invalid && !changePassForm.uPassNewRep.$pristine" class="help-block">The password must be the same</p>
                 </div>
-                <div class="col-lg-2"></div>
+                <div class="col-lg-2 col-md-2"></div>
             </div>
         </div>
 

@@ -4,8 +4,8 @@
 
 <div class="text-center">
     <div class="row">
-        <div class="col-lg-1"></div>
-        <div class="col-lg-5 pull-left">
+        <div class="col-lg-1 col-md-1"></div>
+        <div class="col-lg-5 col-md-5 pull-left">
             <img src="~/Content/Imagenes/logo.png" style="float:left" />
             <p style="font-size:35px; line-height:28px; float:right">COACHING</p>
         </div>
@@ -34,7 +34,7 @@
 
         <!--WEIGHT LOSS ROW-->
         <div id="loss">
-            <div class="col-lg-12 portada">
+            <div class="col-lg-12 col-md-12 portada">
                 <h3>Weight Loss</h3>
             </div>
             @{
@@ -44,7 +44,7 @@
                     if (contaWL <= 2)
                     {
                         EntrenamientoEntrenadoresVM vMDef = new EntrenamientoEntrenadoresVM(Model.entrenadoresList.Where(x => x._id == entr.Id_Entrenador).Select(x => x).FirstOrDefault(), entr);
-                        <div class="col-lg-4">
+                        <div class="col-lg-4 col-md-4">
                             @Html.Partial("~/Views/PartialsViews/EntrenamientoSmall.cshtml", vMDef)
                         </div>
                     }
@@ -56,8 +56,8 @@
 
     <div class="row" style="background-color:#EFF1F3">
         <!--MUSCLE GAIN ROW-->
-        <div class="col-lg-12" id="muscle">
-            <div class="col-lg-12 portada">
+        <div class="col-lg-12 col-md-12" id="muscle">
+            <div class="col-lg-12 col-md-12 portada">
                 <h3>Muscle Gain</h3>
             </div>
             @{
@@ -67,7 +67,7 @@
                     if (contaMG <= 2)
                     {
                         EntrenamientoEntrenadoresVM vMDef = new EntrenamientoEntrenadoresVM(Model.entrenadoresList.Where(x => x._id == entr.Id_Entrenador).Select(x => x).FirstOrDefault(), entr);
-                        <div class="col-lg-4">
+                        <div class="col-lg-4 col-md-4">
                             @Html.Partial("~/Views/PartialsViews/EntrenamientoSmall.cshtml", vMDef)
                         </div>
                     }
@@ -79,8 +79,8 @@
 
     <div class="row" style="background-color:#EFF1F3; height:800px">
         <!--ONE ON ONE ROW-->
-        <div class="col-lg-12" id="one">
-            <div class="col-lg-12 portada">
+        <div class="col-lg-12 col-md-12" id="one">
+            <div class="col-lg-12 col-md-12 portada">
                 <h3>One on one coaching</h3>
             </div>
             @{
@@ -90,7 +90,7 @@
                     if (contaO <= 2)
                     {
                         EntrenamientoEntrenadoresVM vMDef = new EntrenamientoEntrenadoresVM(Model.entrenadoresList.Where(x => x._id == entr.Id_Entrenador).Select(x => x).FirstOrDefault(), entr);
-                        <div class="col-lg-4">
+                        <div class="col-lg-4 col-md-4">
                             @Html.Partial("~/Views/PartialsViews/EntrenamientoSmall.cshtml", vMDef)
                         </div>
                     }
@@ -119,10 +119,10 @@
                         {
                             <div class="item active">
                                 <div class="row">
-                                    <div class="col-lg-6 center">
+                                    <div class="col-lg-6 col-md-6 center">
                                         <img src='@Url.Action( "showEntrenador", "Fotos", new { id = entrenadores[i]._id})' height="300" width="300" />
                                     </div>
-                                    <div class="col-lg-6 center">
+                                    <div class="col-lg-6 col-md-6 center">
                                         <h3>@entrenadores[i].Nombre</h3>
                                         <p>@entrenadores[i].Descripcion</p>
                                     </div>
@@ -133,10 +133,10 @@
                         {
                             <div class="item">
                                 <div class="row">
-                                    <div class="col-lg-6 center">
+                                    <div class="col-lg-6 col-md-6 center">
                                         <img src='@Url.Action( "showEntrenador", "Fotos", new { id = entrenadores[i]._id})' height="300" width="300" />
                                     </div>
-                                    <div class="col-lg-6 center">
+                                    <div class="col-lg-6 col-md-6 center">
                                         <h3>@entrenadores[i].Nombre</h3>
                                         <p>@entrenadores[i].Descripcion</p>
                                     </div>

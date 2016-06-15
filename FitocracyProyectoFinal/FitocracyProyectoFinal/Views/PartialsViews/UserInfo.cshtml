@@ -5,34 +5,33 @@
 
         <!--USERNAME-->
         <div class="row">
-            <div class="col-lg-2"></div>
-            <div class="form-group col-lg-8">
+            <div class="col-lg-2 col-md-2"></div>
+            <div class="form-group col-lg-8 col-md-8">
                 <div class="input-group" ng-class="{'has-error':userForm.uName.$error.maxlength}">
                     <span class="input-group-addon"><i class="fa fa-user"></i> Username: </span>
                     <input id="Username" name="uName" type="text" class="form-control ng-neutro" placeholder="userName" ng-model="uName" ng-minlength="3" ng-maxlength="15" />
-                </div>
-                <p ng-show="userForm.uName.$error.minlength" class="help-block">Enter a valid name</p>
+                </div>          
                 <p ng-show="userForm.uName.$error.maxlength" class="help-block">Enter a valid name</p>
             </div>
-            <div class="col-lg-2"></div>
+            <div class="col-lg-2 col-md-2"></div>
         </div>
 
         <!--EMAIL-->
         <div class="row">
-            <div class="col-lg-2"></div>
-            <div class="form-group col-lg-8">
+            <div class="col-lg-2 col-md-2"></div>
+            <div class="form-group col-lg-8 col-md-8">
                 <div class="input-group">
                     <span class="input-group-addon"><i class="fa fa-envelope"></i> Email: </span>
                     <input id="uEmail" name="uEmail" type="text" class="form-control ng-neutro" placeholder="@Model.Email" ng-readonly="true" ng-model="uEmail" />
                 </div>
             </div>
-            <div class="col-lg-2"></div>
+            <div class="col-lg-2 col-md-2"></div>
         </div>
 
         <!--BIRTHDAY-->
         <div class="row">
-            <div class="col-lg-2"></div>
-            <div class="form-group col-lg-8">
+            <div class="col-lg-2 col-md-2"></div>
+            <div class="form-group col-lg-8 col-md-8">
                 <div class="input-group" id="divBirthday">
                     <span class="input-group-addon"><i class="fa fa-birthday-cake" aria-hidden="true"></i> Birthday: </span>
                     @{
@@ -42,7 +41,7 @@
                     <input id="uBirthday" name="uBirthday" type="text" class="form-control ng-neutro" placeholder="@birthday" ng-model="uBirthday" />
                 </div>
             </div>
-            <div class="col-lg-2"></div>
+            <div class="col-lg-2 col-md-2"></div>
         </div>
 
         <script>
@@ -53,8 +52,8 @@
 
         <!--DESCRIPTION-->
         <div class="row">
-            <div class="col-lg-2"></div>
-            <div class="form-group col-lg-8">
+            <div class="col-lg-2 col-md-2"></div>
+            <div class="form-group col-lg-8 col-md-8">
                 <div class="input-group" ng-class="{'has-error':userForm.uDescription.$error}">
                     <span class="input-group-addon"><i class="fa fa-comment-o" aria-hidden="true"></i> Description: </span>
                     @{
@@ -65,7 +64,7 @@
                 </div>
                 <p ng-show="userForm.uDescripcion.$error.maxlength" class="help-block">Description too long</p>
             </div>
-            <div class="col-lg-2"></div>
+            <div class="col-lg-2 col-md-2"></div>
         </div>
 
         <div class="form-group text-center">

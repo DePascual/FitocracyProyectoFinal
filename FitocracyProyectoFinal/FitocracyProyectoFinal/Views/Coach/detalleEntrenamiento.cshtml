@@ -29,20 +29,20 @@
 
 
 <div class="row" style="background-color:#333">
-    <div class="col-lg-12" style="margin-top:30px;">
-        <div class="col-lg-4"></div>
-        <div class="col-lg-4">
+    <div class="col-lg-12 col-md-12" style="margin-top:30px;">
+        <div class="col-lg-4 col-md-4"></div>
+        <div class="col-lg-4 col-md-4">
             <img src=@Url.Action("showFotoEntrenamiento", "Fotos", new { id = entrenamiento._id }) height="300" width="300" />
         </div>
-        <div class="col-lg-4"></div>
+        <div class="col-lg-4 col-md-4"></div>
         <hr />
     </div>
 </div>
 
 <div class="row" style="background-color:#333;">
-    <div class="col-lg-12">
+    <div class="col-lg-12 col-md-12">
         <!--COLUMNA IZQUIERDA-->
-        <div class="col-lg-2">
+        <div class="col-lg-2 col-md-2">
             <div class="redondo" style="display:inline-block; color:#fff; vertical-align:top; text-align:left; padding:10px">
                 <img src='@Url.Action("showEntrenador", "Fotos", new { id = entrenador._id })' height="70" width="70" />
             </div>
@@ -50,11 +50,11 @@
             <p style="color:#8F9A9E; font-size:small">@entrenador.Descripcion</p>
         </div>
         <!--COLUMNA DERECHA-->
-        <div class="col-lg-10">
+        <div class="col-lg-10 col-md-10">
             <h1>@entrenamiento.NombreEntrenamiento - Starts Today!</h1>
             <hr />
 
-            <div class="col-lg-5">
+            <div class="col-lg-5 col-md-5">
                 <h2>Who it's for</h2>
                 <p style="color:#8F9A9E">@entrenamiento.Who</p>
 
@@ -81,7 +81,7 @@
                 </ul>
             </div>
 
-            <div class="col-lg-5">
+            <div class="col-lg-5 col-md-5">
                 <h2>Requirements</h2>
                 <ul style="color:#8F9A9E">
                     @{
@@ -117,13 +117,13 @@
 </div>
 
 <div class="row" style="background-color:#333;">
-    <div class="col-lg-12 center" style="margin-bottom:50px;">
-        <div class="col-lg-4"></div>
-        <div class="col-lg-4" ng-controller="trackCtrl">
+    <div class="col-lg-12 col-md-12 center" style="margin-bottom:50px;">
+        <div class="col-lg-4 col-md-4"></div>
+        <div class="col-lg-4 col-md-4" ng-controller="trackCtrl">
             <input type="hidden" id="idEntrenamiento" value="@entrenamiento._id" />
             <input type="submit" class="btn btn-primary btn-block" ng-click="compraEntrenamiento()" value="Join Now" />
         </div>
-        <div class="col-lg-4"></div>
+        <div class="col-lg-4 col-md-4"></div>
     </div>
 </div>
 
@@ -150,21 +150,21 @@
                                     <h3>Login OK!!</h3>
                                 </div>
                                 <div class="row">
-                                    <div class="col-lg-5">
+                                    <div class="col-lg-5 col-md-5">
                                         <div class="input-group" ng-class="{'has-error':loginForm.uName.$invalid && !loginForm.uName.$touched}">
                                             <span class="input-group-addon"><i class="fa fa-user"></i></span>
                                             <input id="uName" name="uName" type="text" class="form-control ng-neutro" placeholder="userName" ng-model="uName" ng-required="true" ng-minlength="3" ng-maxlength="15" />
                                         </div>
                                         <p ng-show="loginForm.uName.$invalid && !loginForm.uName.$touched" class="help-block">Enter a valid name</p>
                                     </div>
-                                    <div class="col-lg-5">
+                                    <div class="col-lg-5 col-md-5">
                                         <div class="input-group" ng-class="{'has-error':loginForm.uPass.$invalid && !loginForm.uPass.$touched}">
                                             <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
                                             <input id="uPass" name="uPass" type="password" class="form-control ng-neutro" placeholder="*********" ng-model="uPass" ng-required="true" ng-pattern="/^(?=.*\d)(?=.*[a-zA-Z])[a-zA-Z0-9]{7,}$/" />
                                         </div>
                                         <p ng-show="loginForm.uPass.$invalid && !loginForm.uPass.$touched" class="help-block">Enter a valid password</p>
                                     </div>
-                                    <div class="col-lg-2" ng-controller="trackCtrl">
+                                    <div class="col-lg-2 col-md-2" ng-controller="trackCtrl">
                                         <input type="submit" class="btn btn-primary" ng-click="loginDesdeCompra(loginForm.$valid)" ng-disabled="loginForm.$invalid" value="Submit" />
                                     </div>
                                 </div>
@@ -181,15 +181,15 @@
                         Usuario usuario = (Usuario)Session["infoUsuario"];
                         <div>
                             <div class="row">
-                                <div class="col-lg-6">
-                                    <div class="form-group col-lg-8">
+                                <div class="col-lg-6 col-md-6">
+                                    <div class="form-group col-lg-8 col-md-8">
                                         <div class="input-group">
                                             <span class="input-group-addon"><i class="fa fa-user"></i></span>
                                             <input id="uName" name="uName" type="text" class="form-control ng-neutro" placeholder="@usuario.Username" ng-model="uName" />
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-lg-6">
+                                <div class="col-lg-6 col-md-6">
                                     <div class="input-group">
                                         <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
                                         <input id="uPass" name="uPass" type="password" class="form-control ng-neutro" placeholder="*********" ng-model="uPass" />
@@ -211,7 +211,7 @@
                     </div>
 
                     <div class="row">
-                        <div class="col-lg-6">
+                        <div class="col-lg-6 col-md-6">
                             <div class="input-group" ng-class="{'has-error':compraForm.uNumTarjeta.$invalid && !compraForm.uNumTarjeta.$touched}">
                                 <span class="input-group-addon">Card number:</span>
                                 <input id="uNumTarjeta" name="uNumTarjeta" type="text" class="form-control ng-neutro" style="width:100%" placeholder="**** **** **** ****" ng-model="uNumTarjeta" ng-required="true" ng-pattern="/^[0-9]{16}$/" />
@@ -219,7 +219,7 @@
                             <p ng-show="compraForm.uNumTarjeta.$invalid && !compraForm.uNumTarjeta.$touched" class="help-block">The card number is invalid</p>
                         </div>
 
-                        <div class="col-lg-6">
+                        <div class="col-lg-6 col-md-6">
                             <div class="input-group" ng-class="{'has-error':compraForm.uNumSecurity.$invalid && !compraForm.uNumSecurity.$touched}">
                                 <span class="input-group-addon">Security code:</span>
                                 <input id="uNumSecurity" name="uNumSecurity" type="text" class="form-control ng-neutro" placeholder="***" ng-model="uNumSecurity" ng-required="true" ng-pattern="/^[0-9]{3}$/" />
@@ -229,7 +229,7 @@
                     </div>
                     <br /><br />
                     <div class="row">
-                        <div class="col-lg-6">
+                        <div class="col-lg-6 col-md-6">
                             <div class="input-group" ng-class="{'has-error':compraForm.uAnyoTarjeta.$invalid && !compraForm.uAnyoTarjeta.$touched}">
                                 <span class="input-group-addon">Expiration year:</span>
                                 <input id="uAnyoTarjeta" name="uAnyoTarjeta" type="text" class="form-control ng-neutro" placeholder="@DateTime.Now.Year.ToString()" ng-model="uAnyoTarjeta" ng-required="true" ng-pattern="/^[0-9]{2,4}$/" />
@@ -237,7 +237,7 @@
                             <p ng-show="compraForm.uAnyoTarjeta.$invalid && !compraForm.uAnyoTarjeta.$touched" class="help-block">Expiration year</p>
                         </div>
 
-                        <div class="col-lg-6">
+                        <div class="col-lg-6 col-md-6">
                             <div class="input-group" ng-class="{'has-error':compraForm.uMesTarjeta.$invalid && !compraForm.uMesTarjeta.$touched}">
                                 <span class="input-group-addon">Expiration month:</span>
                                 <input id="uMesTarjeta" name="uMesTarjeta" type="text" class="form-control ng-neutro" placeholder="@DateTime.Now.Month.ToString()" ng-model="uMesTarjeta" ng-required="true" ng-pattern="/^[0-9]{1,2}$/" />

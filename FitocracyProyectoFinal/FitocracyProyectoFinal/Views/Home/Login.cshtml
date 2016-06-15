@@ -16,32 +16,32 @@
 
                 <form name="loginForm" novalidate>
                     <div class="row">
-                        <div class="col-lg-2"></div>
-                        <div class="form-group col-lg-8">
+                        <div class="col-lg-2 col-md-2"></div>
+                        <div class="form-group col-lg-8 col-md-8">
                             <div class="input-group" ng-class="{'has-error':loginForm.uName.$invalid && !loginForm.uName.$touched}">
                                 <span class="input-group-addon"><i class="fa fa-user"></i></span>
                                 <input id="uName" name="uName" type="text" class="form-control ng-neutro" placeholder="userName" ng-model="uName" ng-required="true" ng-minlength="3" ng-maxlength="15" />
                             </div>
                             <p ng-show="loginForm.uName.$invalid && !loginForm.uName.$touched" class="help-block">Enter a valid name</p>
                         </div>
-                        <div class="col-lg-2"></div>
+                        <div class="col-lg-2 col-md-2"></div>
                     </div>
 
                     <div class="row">
-                        <div class="col-lg-2"></div>
-                        <div class="form-group col-lg-8">
+                        <div class="col-lg-2 col-md-2"></div>
+                        <div class="form-group col-lg-8 col-md-8">
                             <div class="input-group" ng-class="{'has-error':loginForm.uPass.$invalid && !loginForm.uPass.$touched}">
                                 <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
                                 <input id="uPass" name="uPass" type="password" class="form-control ng-neutro" placeholder="*********" ng-model="uPass" ng-required="true" ng-pattern="/^(?=.*\d)(?=.*[a-zA-Z])[a-zA-Z0-9]{7,}$/" />
                             </div>
                             <p ng-show="loginForm.uPass.$invalid && !loginForm.uPass.$touched" class="help-block">The password must have a minimum of 7 characters, a capital and a number</p>
                         </div>
-                        <div class="col-lg-2"></div>
+                        <div class="col-lg-2 col-md-2"></div>
                     </div>
 
                     <div class="row">
-                        <div class="col-lg-2"></div>
-                        <div class="form-group col-lg-8">
+                        <div class="col-lg-2 col-md-2"></div>
+                        <div class="form-group col-lg-8 col-md-8">
 
                             <div class="checkbox">
                                 <label>
@@ -50,7 +50,7 @@
                             </div>
 
                         </div>
-                        <div class="col-lg-2"></div>
+                        <div class="col-lg-2 col-md-2"></div>
                     </div>
 
                     <div class="form-group text-center">
